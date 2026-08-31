@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Aufträge verwalten · Lackdesign</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="intake.css" />
+</head>
+<body class="admin-page">
+  <header class="admin-header">
+    <a href="index.html">
+      <span>Lackdesign - OWL · Verwaltung</span>
+    </a>
+    <div id="adminHeaderUser" class="hidden" style="display: flex; align-items: center; gap: 1rem;">
+      <span class="admin-user" id="adminUserName"></span>
+      <button type="button" class="btn-logout" id="logoutBtn">Abmelden</button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <section id="loginSection" class="admin-login">
+      <h1 style="font-family: var(--font-display); font-size: 1.75rem; margin-bottom: 0.5rem;">Anmelden</h1>
+      <p style="color: #525252; margin-bottom: 1.25rem;">Aufträge und Anbieter-Anmeldungen verwalten.</p>
+      <form id="loginForm">
+        <div class="form-field">
+          <label for="loginEmail">E-Mail</label>
+          <input type="email" id="loginEmail" required autocomplete="username" />
+        </div>
+        <div class="form-field" style="margin-top: 1rem;">
+          <label for="loginPassword">Passwort</label>
+          <input type="password" id="loginPassword" required autocomplete="current-password" />
+        </div>
+        <p id="loginError" class="alert alert--error hidden" style="margin-top: 1rem; margin-bottom: 0;"></p>
+        <div class="form-actions" style="margin-top: 1.25rem;">
+          <button type="submit" class="btn btn--primary">Anmelden</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="dashboardSection" class="hidden">
+      <div class="page-intro">
+        <h1>Sammelanfragen</h1>
+        <p>Eingehende Fahrzeug-Aufträge von Stammkunden – Status, Notizen und Preise (intern).</p>
+      </div>
+
+      <section class="panel" id="settingsPanel">
+        <h2>Zugangscode</h2>
+        <p style="color: #525252; line-height: 1.5; margin-bottom: 1rem;">
+          Stammkunden erhalten diesen Code statt eines Logins. Damit öffnen sie die Sammelanfrage.
+        </p>
+        <form id="settingsForm">
+          <div class="form-field">
+            <label for="providerTokenInput">Zugangscode</label>
+            <input type="text" id="providerTokenInput" required minlength="6" maxlength="120" autocomplete="off" spellcheck="false" />
+          </div>
+          <p id="providerLinkHint" style="margin-top: 0.75rem; font-size: 0.875rem; color: #525252; word-break: break-all;"></p>
+          <p id="settingsAlert" class="hidden" style="margin-top: 1rem;"></p>
+          <div class="form-actions" style="margin-top: 1rem;">
+            <button type="submit" class="btn btn--primary">Code speichern</button>
+          </div>
+        </form>
+      </section>
+
+      <div id="statsRow" class="stats-row"></div>
+
+      <div class="admin-toolbar">
+        <input type="search" id="searchInput" placeholder="Suche: Referenz, Firma, Kennzeichen …" />
+        <select id="statusFilter">
+          <option value="">Alle Status</option>
+          <option value="neu">Neu</option>
+          <option value="bestaetigt">Bestätigt</option>
+          <option value="abholung_geplant">Abholung geplant</option>
+          <option value="in_arbeit">In Arbeit</option>
+          <option value="fertig">Fertig</option>
+          <option value="abgeschlossen">Abgeschlossen</option>
+          <option value="storniert">Storniert</option>
+        </select>
+        <button type="button" class="btn-secondary" id="refreshBtn">Aktualisieren</button>
+      </div>
+
+      <div id="listAlert" class="hidden"></div>
+
+      <div style="overflow-x: auto;">
+        <table class="intake-table">
+          <thead>
+            <tr>
+              <th>Referenz</th>
+              <th>Fahrzeug</th>
+              <th>Anbieter</th>
+              <th>Status</th>
+              <th>Dringlichkeit</th>
+              <th>Eingang</th>
+            </tr>
+          </thead>
+          <tbody id="intakeTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="detail-drawer" id="detailDrawer" aria-hidden="true">
+    <button type="button" class="detail-drawer__close" id="closeDrawer" aria-label="Schließen">×</button>
+    <div class="detail-drawer__inner" id="drawerContent"></div>
+  </aside>
+
+  <script src="admin.js"></script>
+</body>
+</html>

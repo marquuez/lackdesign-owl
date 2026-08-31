@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Lackdesign in Rietberg – Waschstraße und Fahrzeugaufbereitung auf höchstem Niveau. Perfektion in Lack – von der Idee bis zum Glanz." />
+  <title>Lackdesign · Waschstraße · Aufbereitung</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    (function () {
+      try {
+        var nav = performance.getEntriesByType('navigation')[0];
+        var isReload = nav && nav.type === 'reload';
+        if (!isReload && sessionStorage.getItem('lackdesign_intro_seen')) {
+          document.documentElement.classList.add('skip-intro');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <!-- Intro / Autoloader -->
+  <div id="intro" class="intro" aria-hidden="true" aria-busy="true" aria-label="Lackdesign OWL wird geladen">
+    <div class="intro__inner">
+      <div class="intro__scene" aria-hidden="true">
+        <div class="intro__road">
+          <div class="intro__vehicle">
+            <svg class="intro__car" viewBox="0 0 96 44" fill="currentColor">
+              <g class="intro__speed">
+                <rect x="0" y="18" width="13" height="1.8" />
+                <rect x="3" y="24" width="11" height="1.8" />
+                <rect x="0" y="30" width="14" height="1.8" />
+              </g>
+              <path d="M20 33c1-11 12-20 30-20 12 0 20 6 25 12 4 0 9 3 11 8 1 2 2 5 2 6H20z" />
+              <rect x="18" y="32" width="62" height="4.5" rx="1" />
+              <circle cx="35" cy="36.8" r="6.6" />
+              <circle cx="71" cy="36.8" r="6.6" />
+            </svg>
+          </div>
+          <div class="intro__dashes"></div>
+        </div>
+        <div class="intro__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="intro__bar-fill"></div>
+        </div>
+      </div>
+      <p class="intro__brand">Lackdesign - OWL</p>
+    </div>
+  </div>
+
+  <!-- Header: Menu | Logo | Kontakt -->
+  <header class="site-header" id="siteHeader">
+    <button class="site-header__menu" id="menuToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="megaMenu">
+      <span class="site-header__menu-icon" aria-hidden="true">
+        <span class="site-header__menu-lines"><span></span><span></span></span>
+        <span class="site-header__menu-close">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+      </span>
+      <span class="site-header__menu-label" data-label-open="Menü" data-label-close="Schließen">Menü</span>
+    </button>
+
+    <a href="#hero" class="site-header__logo" aria-label="Zur Startseite">
+      <span class="site-header__logo-text">Lackdesign - OWL</span>
+    </a>
+
+    <a href="#kontakt" class="site-header__cta">Kontakt</a>
+  </header>
+
+  <!-- Ferrari-style mega menu -->
+  <div class="mega-menu" id="megaMenu" aria-hidden="true">
+    <div class="mega-menu__inner">
+      <div class="mega-menu__nav">
+        <nav class="mega-nav" aria-label="Hauptnavigation">
+          <div class="mega-nav__item is-open" data-panel="leistungen">
+            <button type="button" class="mega-nav__trigger" aria-expanded="true">
+              <span>Leistungen</span>
+              <svg class="mega-nav__chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="mega-nav__links">
+              <div class="mega-nav__links-inner">
+                <a href="#lackdesign" data-menu-link data-preview="lackdesign">Lackiererei</a>
+                <a href="#aufbereitung" data-menu-link data-preview="aufbereitung">Aufbereitung</a>
+                <a href="#waschstrasse" data-menu-link data-preview="waschstrasse">Waschstraße</a>
+                <a href="#sonderlackFlip" data-menu-link data-preview="sonderlack">Sonderlackierung</a>
+                <a href="#keramikFlip" data-menu-link data-preview="keramik">Keramikversiegelung</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="mega-nav__item" data-panel="kontakt">
+            <button type="button" class="mega-nav__trigger" aria-expanded="false">
+              <span>Kontakt</span>
+              <svg class="mega-nav__chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="mega-nav__links">
+              <div class="mega-nav__links-inner">
+                <a href="#kontakt" data-menu-link data-preview="kontakt">Anfrage senden</a>
+                <a href="#kontakt" data-menu-link data-preview="kontakt">Öffnungszeiten</a>
+                <a href="#kontakt" data-menu-link data-preview="kontakt">Anrufen</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <div class="mega-menu__utils">
+          <a href="#hero" data-menu-link>Startseite</a>
+          <a href="#kontakt" data-menu-link>Termin vereinbaren</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Lackdesign+Siemensstra%C3%9Fe+18+33397+Rietberg" target="_blank" rel="noopener noreferrer">Anfahrt</a>
+        </div>
+      </div>
+
+      <div class="mega-menu__stage" aria-hidden="true">
+        <article class="mega-stage is-active" data-stage="leistungen">
+          <div class="mega-stage__media" style="--bg: url('https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=1600&q=80')"></div>
+          <div class="mega-stage__veil"></div>
+          <div class="mega-stage__body">
+            <p class="mega-stage__eyebrow">Leistungen</p>
+            <h2 class="mega-stage__title">Alles aus einer Hand</h2>
+            <a href="#lackdesign" class="discover discover--compact" data-menu-link>
+              <span class="discover__label">Entdecken</span>
+              <span class="discover__btn" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+          </div>
+        </article>
+
+        <article class="mega-stage" data-stage="lackdesign">
+          <div class="mega-stage__media" style="--bg: url('/public/images/lackdesign/lackdesign-1.jpg')"></div>
+          <div class="mega-stage__veil"></div>
+          <div class="mega-stage__body">
+            <p class="mega-stage__eyebrow">Lackiererei</p>
+            <h2 class="mega-stage__title">Lackiererei</h2>
+            <a href="#lackdesign" class="discover discover--compact" data-menu-link>
+              <span class="discover__label">Entdecken</span>
+              <span class="discover__btn" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+          </div>
+        </article>
+
+        <article class="mega-stage" data-stage="sonderlack">
+          <div class="mega-stage__media" style="--bg: url('/public/images/lackdesign/lackdesing-4.jpg')"></div>
+          <div class="mega-stage__veil"></div>
+          <div class="mega-stage__body">
+            <p class="mega-stage__eyebrow">Lackdesign</p>
+            <h2 class="mega-stage__title">Sonderlackierung</h2>
+            <a href="#sonderlackFlip" class="discover discover--compact" data-menu-link>
+              <span class="discover__label">Entdecken</span>
+              <span class="discover__btn" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+          </div>
+        </article>
+
+        <article class="mega-stage" data-stage="waschstrasse">
+          <div class="mega-stage__media" style="--bg: url('/public/images/lackdesign/lackdesign-2.jpg')"></div>
+          <div class="mega-stage__veil"></div>
+          <div class="mega-stage__body">
+            <p class="mega-stage__eyebrow">Waschstraße</p>
+            <h2 class="mega-stage__title">Sauberkeit, die man sieht</h2>
+            <a href="#waschstrasse" class="discover discover--compact" data-menu-link>
+              <span class="discover__label">Entdecken</span>
+              <span class="discover__btn" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+          </div>
+        </article>
+
+        <article class="mega-stage" data-stage="aufbereitung">
+          <div class="mega-stage__media" style="--bg: url('/public/images/lackdesign/lackdesign-3.jpg')"></div>
+          <div class="mega-stage__veil"></div>
+          <div class="mega-stage__body">
+            <p class="mega-stage__eyebrow">Aufbereitung</p>
+            <h2 class="mega-stage__title">Showroom-Glanz</h2>
+            <a href="#aufbereitung" class="discover discover--compact" data-menu-link>
+              <span class="discover__label">Entdecken</span>
+              <span class="discover__btn" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+          </div>
+        </article>
+
+        <article class="mega-stage" data-stage="keramik">
+          <div class="mega-stage__media" style="--bg: url('https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=1600&q=80')"></div>
+          <div class="mega-stage__veil"></div>
+          <div class="mega-stage__body">
+            <p class="mega-stage__eyebrow">Aufbereitung</p>
+            <h2 class="mega-stage__title">Keramikversiegelung</h2>
+            <a href="#keramikFlip" class="discover discover--compact" data-menu-link>
+              <span class="discover__label">Entdecken</span>
+              <span class="discover__btn" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+          </div>
+        </article>
+
+        <article class="mega-stage" data-stage="kontakt">
+          <div class="mega-stage__media" style="--bg: url('https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=1600&q=80')"></div>
+          <div class="mega-stage__veil"></div>
+          <div class="mega-stage__body">
+            <p class="mega-stage__eyebrow">Kontakt</p>
+            <h2 class="mega-stage__title">Besuchen Sie uns</h2>
+            <a href="#kontakt" class="discover discover--compact" data-menu-link>
+              <span class="discover__label">Anfrage senden</span>
+              <span class="discover__btn" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <main id="mainContent" class="main-content">
+    <!-- Hero carousel: shared video, text slides only -->
+    <div class="hero-iso" id="hero" data-chapter="hero">
+    <section class="hero">
+      <div class="hero__iso-frame" id="heroIsoFrame">
+      <div class="hero__media" aria-hidden="true">
+        <video
+          class="hero__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+        >
+          <source src="assets/hero.mp4" type="video/mp4" />
+        </video>
+        <div class="hero__veil"></div>
+      </div>
+
+      <div class="hero__track" id="heroTrack">
+        <article class="hero__slide is-active" data-slide="0" aria-hidden="false">
+          <div class="hero__content">
+            <p class="hero__category">Perfektion in Lack</p>
+            <h1 class="hero__title">Lackdesign</h1>
+          </div>
+        </article>
+
+        <article class="hero__slide" data-slide="1" aria-hidden="true">
+          <div class="hero__content">
+            <p class="hero__category">Aufbereitung</p>
+            <h2 class="hero__title">Showroom-<br />Glanz</h2>
+          </div>
+        </article>
+
+        <article class="hero__slide" data-slide="2" aria-hidden="true">
+          <div class="hero__content">
+            <p class="hero__category">Waschstraße</p>
+            <h2 class="hero__title">Sauberkeit,<br />die man sieht</h2>
+          </div>
+        </article>
+      </div>
+
+      <div class="hero__actions">
+        <a href="anbieter.html" class="service-details__btn">
+          <span>Sammelanfragen</span>
+          <span class="discover__btn" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a href="#kontakt" class="service-details__btn">
+          <span>Event-Aufbereitung buchen</span>
+          <span class="discover__btn" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a href="#kontakt" class="service-details__btn">
+          <span>Anrufen</span>
+          <span class="discover__btn" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+
+      <div class="hero__controls">
+        <div class="hero__dots" id="heroDots" role="tablist" aria-label="Hero-Slides">
+          <button type="button" class="hero__dot is-active" role="tab" aria-selected="true" aria-label="Slide 1" data-goto="0"></button>
+          <button type="button" class="hero__dot" role="tab" aria-selected="false" aria-label="Slide 2" data-goto="1"></button>
+          <button type="button" class="hero__dot" role="tab" aria-selected="false" aria-label="Slide 3" data-goto="2"></button>
+        </div>
+        <button type="button" class="hero__pause" id="heroPause" aria-label="Video pausieren">
+          <svg class="icon-pause" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="7" y="6" width="3" height="12" fill="currentColor"/><rect x="14" y="6" width="3" height="12" fill="currentColor"/></svg>
+          <svg class="icon-play" viewBox="0 0 24 24" fill="none" aria-hidden="true" hidden><path d="M8 5l12 7-12 7V5z" fill="currentColor"/></svg>
+        </button>
+      </div>
+      </div>
+    </section>
+    </div>
+
+    <!-- Full-bleed service tiles -->
+    <section class="tile tile--rise" id="lackdesign" data-chapter="lackdesign">
+      <div class="tile__media">
+        <div class="tile__bg" style="--bg: url('/public/images/lackdesign/lackdesign-1.jpg')"></div>
+        <div class="tile__veil"></div>
+      </div>
+      <div class="tile__content reveal">
+        <h2 class="tile__title">Lackdesign</h2>
+        <p class="tile__lead">Sonderlackierungen, Folierung und Design-Konzepte – handwerklich präzise umgesetzt.</p>
+        <a href="#lackdesign-details" class="discover">
+          <span class="discover__label">Details</span>
+          <span class="discover__btn" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <section class="service-details" id="lackdesign-details" data-chapter="lackdesign-details">
+      <div class="service-details__inner">
+        <h2 class="service-details__title">Details</h2>
+        <div class="service-details__grid">
+          <article class="service-details__col reveal">
+            <h3>Lackierqualität</h3>
+            <ul>
+              <li>Professionelle Fahrzeuglackierung</li>
+              <li>Staubarme / staubkontrollierte Lackierung</li>
+              <li>Hochwertige Lackmaterialien</li>
+              <li>Exakte Farbanmischung &amp; Farbtongenauigkeit</li>
+              <li>Sorgfältige Qualitätskontrolle</li>
+              <li>Hochglanz-Finish</li>
+              <li>Professionelle Lackiervorbereitung</li>
+              <li>Saubere Nachbereitung &amp; Politur</li>
+            </ul>
+          </article>
+          <article class="service-details__col reveal reveal--delay-1">
+            <h3>Technik &amp; Ausstattung</h3>
+            <ul>
+              <li>Moderne Lackierkabine</li>
+              <li>Gefilterte Zu- und Abluft</li>
+              <li>Kontrollierte Temperatur und Luftfeuchtigkeit</li>
+              <li>Professionelle Trocknung / Ofentrocknung</li>
+              <li>Professionelle Lichtkontrolle zur Fehlererkennung</li>
+              <li>Digitale Farbtonmessung</li>
+            </ul>
+          </article>
+          <article class="service-details__col reveal reveal--delay-2">
+            <h3>Service</h3>
+            <ul>
+              <li>Schadendokumentation</li>
+              <li>Kostenvoranschlag</li>
+              <li>Unfallinstandsetzung</li>
+              <li>Lackierarbeiten &amp; Smart Repair</li>
+              <li>Flotten- und Gewerbekunden</li>
+              <li>Hol- und Bringservice</li>
+              <li>Schnelle Abwicklung</li>
+              <li>Direkte Kommunikation mit Kunden und Versicherungen – persönlicher Kontakt</li>
+            </ul>
+          </article>
+        </div>
+        <div class="service-details__actions">
+          <a href="#kontakt" class="service-details__btn">
+            <span>Termin vereinbaren</span>
+            <span class="discover__btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Lackdesign+Siemensstra%C3%9Fe+18+33397+Rietberg" class="service-details__btn" target="_blank" rel="noopener noreferrer">
+            <span>Route</span>
+            <span class="discover__btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+          <a href="#kontakt" class="service-details__btn">
+            <span>Anrufen</span>
+            <span class="discover__btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="tile tile--right" id="aufbereitung" data-chapter="aufbereitung">
+      <div class="tile__media">
+        <div class="tile__bg" style="--bg: url('/public/images/lackdesign/lackdesign-3.jpg')"></div>
+        <div class="tile__veil"></div>
+      </div>
+      <div class="tile__content reveal">
+        <h2 class="tile__title">Lang anhaltender Glanz</h2>
+        <p class="tile__lead">Politur, Keramikversiegelung und Innenraum-Detailing für Showroom-Qualität.</p>
+        <a href="#aufbereitung-details" class="discover">
+          <span class="discover__label">Details</span>
+          <span class="discover__btn" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <section class="service-details" id="aufbereitung-details" data-chapter="aufbereitung-details">
+      <div class="service-details__inner">
+        <h2 class="service-details__title">Aufbereitung und Detailing</h2>
+        <div class="service-details__grid">
+          <article class="service-details__col reveal">
+            <h3>Lack &amp; Politur</h3>
+            <ul>
+              <li>Professionelle Fahrzeugpolitur</li>
+              <li>Ein- &amp; Mehrstufenpolitur</li>
+              <li>Lackaufbereitung &amp; Lackkorrektur</li>
+              <li>Entfernung von leichten Kratzern &amp; Swirls</li>
+              <li>Hologramm-Entfernung</li>
+              <li>Hochglanz-Finish</li>
+              <li>Lackreinigung &amp; Dekontamination</li>
+            </ul>
+          </article>
+          <article class="service-details__col reveal reveal--delay-1">
+            <h3>Schutz &amp; Versiegelung</h3>
+            <ul>
+              <li>Keramikversiegelung für den Lack</li>
+              <li>Langzeit-Lackschutz</li>
+              <li>Felgenversiegelung</li>
+              <li>Scheibenversiegelung</li>
+              <li>Kunststoff- &amp; Gummipflege</li>
+            </ul>
+          </article>
+          <article class="service-details__col reveal reveal--delay-2">
+            <h3>Innenraum &amp; Showroom</h3>
+            <ul>
+              <li>Innenraum-Detailing</li>
+              <li>Tiefenreinigung von Sitzen &amp; Polstern</li>
+              <li>Teppich- &amp; Fußmattenreinigung</li>
+              <li>Lederreinigung &amp; Lederpflege</li>
+              <li>Cockpit- &amp; Kunststoffpflege</li>
+              <li>Fenster- &amp; Scheibenreinigung</li>
+              <li>Geruchsneutralisierung</li>
+              <li>Tierhaarentfernung</li>
+              <li>Showroom-Aufbereitung</li>
+              <li>Fahrzeugaufbereitung vor dem Verkauf</li>
+              <li>Fahrzeugaufbereitung nach dem Kauf</li>
+            </ul>
+          </article>
+        </div>
+        <div class="service-details__actions">
+          <a href="#kontakt" class="service-details__btn">
+            <span>Termin vereinbaren</span>
+            <span class="discover__btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+          <a href="#kontakt" class="service-details__btn">
+            <span>Preferenzen</span>
+            <span class="discover__btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+          <a href="#kontakt" class="service-details__btn">
+            <span>Anrufen</span>
+            <span class="discover__btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="tile" id="waschstrasse" data-chapter="waschstrasse">
+      <div class="tile__media">
+        <div class="tile__bg" style="--bg: url('/public/images/lackdesign/lackdesign-2.jpg')"></div>
+        <div class="tile__veil"></div>
+      </div>
+      <div class="tile__content reveal">
+        <h2 class="tile__title">Schonend &amp; gründlich</h2>
+        <p class="tile__lead tile__lead--2lines">
+          <span>Unsere Waschstraße in Bünde überzeugt mit glasklarer Qualität.</span>
+          <span>Besuchen Sie uns gerne in Bünde!</span>
+        </p>
+        <div class="tile__actions">
+          <a href="https://www.google.com/maps/search/?api=1&query=Waschstra%C3%9Fe+B%C3%BCnde" class="discover" target="_blank" rel="noopener noreferrer">
+            <span class="discover__label">Waschstraße entdecken</span>
+            <span class="discover__btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+          <a href="#waschstrasse-programme" class="discover">
+            <span class="discover__label">Programme entdecken</span>
+            <span class="discover__btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-details" id="waschstrasse-programme" data-chapter="waschstrasse-programme">
+      <div class="service-details__inner">
+        <h2 class="service-details__title">Waschprogramme</h2>
+        <div class="service-details__grid">
+          <article class="service-details__col reveal">
+            <h3>Wäsche</h3>
+            <ul>
+              <li>Basiswäsche / Standardwäsche</li>
+              <li>Schaumwäsche</li>
+              <li>Hochdruckwäsche</li>
+              <li>Felgenreinigung</li>
+              <li>Rad- und Schwellerwäsche</li>
+              <li>Intensive Bürstenwäsche</li>
+              <li>Manuelle Vorwäsche</li>
+            </ul>
+          </article>
+          <article class="service-details__col reveal reveal--delay-1">
+            <h3>Pflege &amp; Extra</h3>
+            <ul>
+              <li>Politurwäsche</li>
+              <li>Wachsversiegelung</li>
+              <li>Premium-Pflegeprogramm</li>
+              <li>Intensive Trocknung</li>
+              <li>Hochleistungstrocknung</li>
+              <li>FoamSensation – voluminöser Schaumvorhang</li>
+              <li>Lightshow / Erlebniswäsche</li>
+              <li>Wassersparende bzw. wasserrückgewinnende Wäsche</li>
+            </ul>
+          </article>
+          <article class="service-details__col reveal reveal--delay-2">
+            <h3>Im Überblick</h3>
+            <ul>
+              <li>Gründliche Vorwäsche</li>
+              <li>Effektive Hochdruckreinigung</li>
+              <li>Intensive Felgen- und Radwäsche</li>
+              <li>Lackschonende Bürstenwäsche</li>
+              <li>Glanz- und Politurpflege</li>
+              <li>Hochwertige Wachsversiegelung</li>
+              <li>Leistungsstarke Trocknung</li>
+              <li>Premium-Wäsche für extra Glanz</li>
+              <li>Erlebniswäsche mit Schaum</li>
+              <li>Wassersparende Reinigung</li>
+            </ul>
+          </article>
+        </div>
+        <div class="service-details__actions">
+          <a href="#kontakt" class="service-details__btn">
+            <span>Termin vereinbaren</span>
+            <span class="discover__btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Waschstra%C3%9Fe+B%C3%BCnde" class="service-details__btn" target="_blank" rel="noopener noreferrer">
+            <span>Waschstraße LIVE</span>
+            <span class="discover__btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+          <a href="#kontakt" class="service-details__btn">
+            <span>Anrufen</span>
+            <span class="discover__btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dual promo strip -->
+    <section class="promo promo--fly" aria-label="Leistungen">
+      <div class="promo__flip reveal" id="sonderlackFlip">
+        <div class="promo__flip-inner">
+          <button type="button" class="promo__item promo__face promo__face--front" id="sonderlackFlipFront" aria-expanded="false" aria-controls="sonderlackFlipBack">
+            <div class="promo__bg" style="--bg: url('/public/images/lackdesign/lackdesing-4.jpg')"></div>
+            <div class="promo__veil"></div>
+            <span class="promo__hint" aria-hidden="true">Klick mich</span>
+            <div class="promo__body">
+              <h3 class="promo__title">Sonderlackierungen</h3>
+              <span class="discover discover--compact">
+                <span class="discover__label">Details</span>
+                <span class="discover__btn" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </span>
+            </div>
+          </button>
+          <div class="promo__face promo__face--back" id="sonderlackFlipBack">
+            <div class="promo__face-band">
+              <h3>Sonderlackierungen</h3>
+            </div>
+            <ul class="promo__cols">
+              <li>Individuelle Fahrzeuglackierungen</li>
+              <li>Komplettlackierungen</li>
+              <li>Teillackierungen</li>
+              <li>Zweifarblackierungen</li>
+              <li>Mehrfarbige Lackierungen</li>
+              <li>Sonderfarbtöne &amp; individuelle Farbmischungen</li>
+              <li>Metallic-Lackierungen</li>
+              <li>Perleffekt-Lackierungen</li>
+              <li>Mattlackierungen</li>
+              <li>Glanzlackierungen</li>
+              <li>Kontrastlackierungen</li>
+              <li>Lackierung von Anbauteilen</li>
+              <li>Lackierung von Felgen</li>
+              <li>Lackierung von Fahrzeugteilen</li>
+              <li>Individuelle Design-Lackierungen</li>
+              <li>Farbwechsel / Umgestaltung</li>
+              <li>Oldtimer- &amp; Youngtimer-Lackierungen</li>
+              <li>Nutzfahrzeug- &amp; Gewerbelackierungen</li>
+              <li>Werbe- und Firmenfahrzeuglackierungen</li>
+            </ul>
+            <div class="promo__face-band">
+              <a href="#kontakt" class="discover discover--compact">
+                <span class="discover__label">Termin vereinbaren</span>
+                <span class="discover__btn" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="promo__flip reveal reveal--delay-1" id="keramikFlip">
+        <div class="promo__flip-inner">
+          <button type="button" class="promo__item promo__face promo__face--front" id="keramikFlipFront" aria-expanded="false" aria-controls="keramikFlipBack">
+            <div class="promo__bg" style="--bg: url('https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=1200&q=80')"></div>
+            <div class="promo__veil"></div>
+            <span class="promo__hint" aria-hidden="true">Klick mich</span>
+            <div class="promo__body">
+              <h3 class="promo__title">Keramikversiegelung</h3>
+              <span class="discover discover--compact">
+                <span class="discover__label">Details</span>
+                <span class="discover__btn" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </span>
+            </div>
+          </button>
+          <div class="promo__face promo__face--back" id="keramikFlipBack">
+            <div class="promo__face-band">
+              <h3>Keramikversiegelung – Komplettpaket</h3>
+            </div>
+            <ul class="promo__cols">
+              <li>Intensive Fahrzeugwäsche</li>
+              <li>Lackdekontamination</li>
+              <li>Flugrost- &amp; Teerentfernung</li>
+              <li>Lackinspektion</li>
+              <li>Hochglanzpolitur</li>
+              <li>Professionelle Keramikbeschichtung</li>
+              <li>Felgenversiegelung</li>
+              <li>Scheibenversiegelung</li>
+              <li>Kunststoffpflege</li>
+              <li>Abschlusskontrolle</li>
+            </ul>
+            <div class="promo__face-band">
+              <a href="#kontakt" class="discover discover--compact">
+                <span class="discover__label">Termin vereinbaren</span>
+                <span class="discover__btn" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section class="contact" id="kontakt" data-chapter="kontakt">
+      <div class="contact__inner">
+        <div class="contact__info reveal">
+          <p class="contact__eyebrow">Kontakt</p>
+          <h2 class="contact__title">Besuchen Sie uns</h2>
+          <address>
+            <p><strong>Lackdesign</strong></p>
+            <p>Christof Lempa</p>
+            <p>Siemensstraße 18<br />33397 Rietberg</p>
+          </address>
+          <div class="contact__hours">
+            <p class="contact__hours-title">Öffnungszeiten</p>
+            <dl class="hours-list">
+              <div><dt>Montag</dt><dd>08:00–17:00</dd></div>
+              <div><dt>Dienstag</dt><dd>08:00–17:00</dd></div>
+              <div><dt>Mittwoch</dt><dd>08:00–17:00</dd></div>
+              <div><dt>Donnerstag</dt><dd>08:00–17:00</dd></div>
+              <div><dt>Freitag</dt><dd>08:00–17:00</dd></div>
+              <div><dt>Samstag</dt><dd>Geschlossen</dd></div>
+              <div><dt>Sonntag</dt><dd>Geschlossen</dd></div>
+            </dl>
+          </div>
+        </div>
+        <form class="contact__form reveal reveal--delay-2" id="contactForm">
+          <div class="form-row">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required autocomplete="name" placeholder="Ihr Name" />
+          </div>
+          <div class="form-row">
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" required autocomplete="email" placeholder="name@email.de" />
+          </div>
+          <div class="form-row">
+            <label for="service">Leistung</label>
+            <select id="service" name="service">
+              <option value="lackdesign">Lackiererei</option>
+              <option value="aufbereitung">Aufbereitung</option>
+              <option value="waschstrasse">Waschstraße</option>
+              <option value="beratung">Allgemeine Beratung</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="message">Nachricht</label>
+            <textarea id="message" name="message" rows="4" required placeholder="Ihre Nachricht"></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            <span>Anfrage senden</span>
+            <span class="discover__btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">
+        <span>Lackdesign - OWL</span>
+      </div>
+      <nav class="site-footer__nav" aria-label="Leistungen">
+        <a href="#lackdesign">Lackiererei</a>
+        <a href="#aufbereitung">Aufbereitung</a>
+        <a href="#waschstrasse">Waschstraße</a>
+        <a href="#sonderlackFlip">Sonderlackierung</a>
+        <a href="#keramikFlip">Keramikversiegelung</a>
+      </nav>
+      <nav class="site-footer__legal" aria-label="Kontakt und Rechtliches">
+        <a href="#kontakt">Kontakt</a>
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </nav>
+    </div>
+    <p class="site-footer__copy">&copy; 2026, Selfdesigned by ITME-Solutions.</p>
+  </footer>
+
+  <nav class="page-nav" id="pageNav" aria-label="Abschnitte">
+    <button type="button" class="page-nav__btn" id="pageNavUp" aria-label="Vorheriger Abschnitt">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 15l6-6 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button type="button" class="page-nav__btn" id="pageNavDown" aria-label="Nächster Abschnitt">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </nav>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Sammelanfrage · Lackdesign</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="intake.css" />
+</head>
+<body class="intake-page">
+  <header class="intake-header">
+    <a href="index.html">
+      <span>Lackdesign - OWL · Sammelanfrage</span>
+    </a>
+  </header>
+
+  <main class="intake-main">
+    <!-- Zugangscode -->
+    <section id="tokenGate" class="token-gate">
+      <h1 style="font-family: var(--font-display); font-size: 1.75rem; margin-bottom: 0.75rem;">Sammelanfrage</h1>
+      <p style="color: #525252; margin-bottom: 1.25rem; line-height: 1.5;">
+        Stammkunden mit mehreren Fahrzeugen erhalten einen Zugangscode.
+        Kein Login nötig – einfach den Code eingeben, den Sie von Lackdesign bekommen haben.
+      </p>
+      <form id="tokenForm">
+        <div class="form-field">
+          <label for="accessToken">Zugangscode</label>
+          <input type="password" id="accessToken" required autocomplete="off" />
+        </div>
+        <div class="form-actions" style="margin-top: 1rem;">
+          <button type="submit" class="btn btn--primary">Weiter</button>
+        </div>
+        <p id="tokenError" class="alert alert--error hidden" style="margin-top: 1rem; margin-bottom: 0;"></p>
+      </form>
+    </section>
+
+    <!-- Formular -->
+    <div id="intakeApp" class="hidden">
+      <div class="page-intro">
+        <h1>Sammelanfrage</h1>
+      </div>
+
+      <div id="formAlert" class="hidden"></div>
+
+      <form id="batchForm">
+        <section class="panel">
+          <h2>Ihre Angaben</h2>
+          <div class="form-grid form-grid--2">
+            <div class="form-field">
+              <label for="providerCompany">Name / Firma *</label>
+              <input type="text" id="providerCompany" required maxlength="200" />
+            </div>
+            <div class="form-field">
+              <label for="contactName">Ansprechpartner *</label>
+              <input type="text" id="contactName" required maxlength="120" />
+            </div>
+            <div class="form-field">
+              <label for="contactPhone">Telefon *</label>
+              <input type="tel" id="contactPhone" required maxlength="80" />
+            </div>
+            <div class="form-field">
+              <label for="contactEmail">E-Mail</label>
+              <input type="email" id="contactEmail" maxlength="255" />
+            </div>
+          </div>
+          <div class="form-field" style="margin-top: 1rem;">
+            <label for="batchNotes">Hinweise zum gesamten Auftrag</label>
+            <textarea id="batchNotes" maxlength="4000" placeholder="z. B. Abholzeiten, Dringlichkeit, Rückrufwunsch …"></textarea>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
+            <h2 style="margin-bottom: 0;">Fahrzeuge</h2>
+            <button type="button" class="btn-secondary" id="addVehicleBtn">+ Fahrzeug hinzufügen</button>
+          </div>
+          <div id="vehiclesList" style="margin-top: 1.25rem;"></div>
+        </section>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn--primary" id="submitBtn">Alle Fahrzeuge anmelden</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Erfolg -->
+    <section id="successPanel" class="panel hidden" style="text-align: center; padding: 3rem 1.5rem;">
+      <h2 style="font-family: var(--font-display); font-size: 2rem; color: #15803d; margin-bottom: 1rem;">Angemeldet</h2>
+      <p id="successMessage" style="font-size: 1.125rem; margin-bottom: 0.5rem;"></p>
+      <p style="color: #525252; margin-bottom: 2rem;">Der Lackdesigner wurde informiert und meldet sich bei Rückfragen telefonisch.</p>
+      <button type="button" class="btn btn--primary" id="newBatchBtn">Weitere Fahrzeuge anmelden</button>
+    </section>
+  </main>
+
+  <template id="vehicleTemplate">
+    <article class="vehicle-card" data-vehicle-index="">
+      <div class="vehicle-card__head">
+        <span class="vehicle-card__title">Fahrzeug <span class="vehicle-num"></span></span>
+        <button type="button" class="btn-remove remove-vehicle">Entfernen</button>
+      </div>
+      <div class="form-grid form-grid--2">
+        <div class="form-field">
+          <label>Marke / Modell *</label>
+          <input type="text" name="make_model" required maxlength="200" placeholder="z. B. BMW 320d" />
+        </div>
+        <div class="form-field">
+          <label>Kennzeichen</label>
+          <input type="text" name="license_plate" maxlength="32" placeholder="M-AB 1234" />
+        </div>
+        <div class="form-field">
+          <label>Dringlichkeit</label>
+          <select name="urgency">
+            <option value="normal">Normal</option>
+            <option value="kurzfristig">Kurzfristig</option>
+            <option value="eilig">Eilig</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Wunschtermin / Deadline</label>
+          <input type="date" name="deadline" />
+        </div>
+      </div>
+      <div class="form-field" style="margin-top: 1rem;">
+        <label>Beschreibung / Schaden *</label>
+        <textarea name="description" required maxlength="8000" placeholder="Was ist passiert? Wo ist der Schaden?"></textarea>
+      </div>
+      <div class="form-field">
+        <label>Was wurde ausgemacht? *</label>
+        <textarea name="agreed_work" required maxlength="8000" placeholder="Telefonisch vereinbarte Leistung – ohne Preisangabe"></textarea>
+        <small>Preise werden separat telefonisch besprochen.</small>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" name="pickup_required" id="" />
+        <label>Fahrzeug muss abgeholt werden</label>
+      </div>
+      <div class="form-field pickup-field hidden">
+        <label>Abholadresse</label>
+        <input type="text" name="pickup_address" maxlength="500" placeholder="Straße, PLZ Ort" />
+      </div>
+      <div class="form-field" style="margin-top: 1rem;">
+        <label>Bilder</label>
+        <div class="dropzone">
+          <input type="file" accept="image/*" multiple />
+          <p>Bilder hier ablegen oder klicken<br /><small>Max. 12 Bilder · je 12 MB</small></p>
+        </div>
+        <div class="thumbs"></div>
+      </div>
+    </article>
+  </template>
+
+  <script src="anbieter.js"></script>
+</body>
+</html>

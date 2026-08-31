@@ -1,0 +1,51 @@
+# Lackdesign Portal — Docker Compose (Website + Auftragssystem auf einer VM)
+#
+# Start:
+#   cp .env.example .env
+#   docker compose up -d --build
+#
+# URLs:
+#   Website:     http://localhost:8080/
+#   Anbieter:    http://localhost:8080/anbieter.html?token=IHR_CODE
+#   Verwaltung:  http://localhost:8080/admin.html
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: lackdesign
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lackdesign}
+      POSTGRES_DB: lackdesign
+    ports:
+      - '127.0.0.1:${LACKDESIGN_DB_PORT:-5434}:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U lackdesign -d lackdesign']
+      interval: 5s
+      timeout: 5s
+      retries: 8
+    restart: unless-stopped
+
+  app:
+    build: .
+    ports:
+      - '127.0.0.1:${LACKDESIGN_PORT:-8090}:8080'
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://lackdesign:${POSTGRES_PASSWORD:-lackdesign}@db:5432/lackdesign
+      PORT: '8080'
+      NODE_ENV: production
+      LACKDESIGN_UPLOAD_DIR: /data/uploads
+      LACKDESIGN_TRUST_PROXY: ${LACKDESIGN_TRUST_PROXY:-0}
+    volumes:
+      - uploads:/data/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  pgdata: {}
+  uploads: {}
