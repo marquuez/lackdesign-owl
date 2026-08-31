@@ -417,7 +417,9 @@
         card.style.transform = '';
         return;
       }
-      const local = Math.min(1, Math.max(0, eased - index * 0.08));
+      const delay = index * 0.1;
+      const span = 1 - delay;
+      const local = span <= 0 ? 1 : Math.min(1, Math.max(0, (eased - delay) / span));
       if (local >= 0.995) {
         card.style.transform = '';
         return;
