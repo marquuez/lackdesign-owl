@@ -19,6 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # hero.mp4 liegt in Git LFS, sonst landet nur die Zeigerdatei im Deploy
+          lfs: true
 
       # Nur die oeffentlichen Dateien veroeffentlichen. Server, Adminbereich
       # und Build-Konfiguration bleiben bewusst aussen vor.
@@ -28,7 +31,15 @@ jobs:
           cp index.html impressum.html datenschutz.html _site/
           cp styles.css main.js legal.js site-config.js robots.txt _site/
           cp -r assets public _site/
+          cp CNAME _site/
           touch _site/.nojekyll
+
+      - name: Pruefen, dass das Video kein LFS-Zeiger ist
+        run: |
+          if head -c 40 _site/assets/hero.mp4 | grep -q "git-lfs"; then
+            echo "hero.mp4 ist nur ein LFS-Zeiger - Deploy abgebrochen." >&2
+            exit 1
+          fi
 
       - uses: actions/upload-pages-artifact@v3
         with:
