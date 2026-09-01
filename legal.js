@@ -38,4 +38,14 @@
       window.location.href = 'index.html';
     });
   });
+
+  fetch('/api/site')
+    .then((res) => (res.ok ? res.json() : null))
+    .then((site) => {
+      if (!site?.phoneHref) return;
+      document.querySelectorAll('.js-call').forEach((el) => {
+        el.href = site.phoneHref;
+      });
+    })
+    .catch(() => {});
 })();

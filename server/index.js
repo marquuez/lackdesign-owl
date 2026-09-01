@@ -5,9 +5,8 @@ import { fileURLToPath } from 'node:url'
 import express from 'express'
 import multer from 'multer'
 import bcrypt from 'bcrypt'
-import { Pool } from 'pg'
 import { authMiddleware, createProviderTokenMiddleware, signAdminToken } from './auth.js'
-import { initDb, seedAdminIfNeeded } from './db/initDb.js'
+import { mountContactApi } from './contact.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const siteRoot = path.join(__dirname, '..')
@@ -40,20 +39,41 @@ function sanitizeText(value, maxLen) {
   return value.trim().slice(0, maxLen)
 }
 
+function mountStatic(app) {
+  app.use(express.static(siteRoot, { extensions: ['html'] }))
+
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next()
+    const filePath = path.join(siteRoot, req.path === '/' ? 'index.html' : req.path)
+    if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+      return res.sendFile(filePath)
+    }
+    res.status(404).sendFile(path.join(siteRoot, 'index.html'))
+  })
+}
+
 /**
- * @param {import('pg').Pool} pool
+ * @param {import('pg').Pool | null} pool
  * @param {string} uploadDirAbs
  */
 export function createApp(pool, uploadDirAbs) {
   const app = express()
   app.set('trust proxy', process.env.LACKDESIGN_TRUST_PROXY === '1')
-  const providerTokenMiddleware = createProviderTokenMiddleware(pool)
 
   app.use(express.json({ limit: '2mb' }))
 
   app.get('/api/health', (_req, res) => {
-    res.json({ ok: true, service: 'lackdesign-portal' })
+    res.json({ ok: true, service: 'lackdesign-website', db: Boolean(pool) })
   })
+
+  mountContactApi(app)
+
+  if (!pool) {
+    mountStatic(app)
+    return app
+  }
+
+  const providerTokenMiddleware = createProviderTokenMiddleware(pool)
 
   /* ─── Admin auth ─── */
   app.post('/api/admin/login', async (req, res) => {
@@ -527,18 +547,7 @@ export function createApp(pool, uploadDirAbs) {
     }
   })
 
-  /* ─── Static site ─── */
-  app.use(express.static(siteRoot, { extensions: ['html'] }))
-
-  app.get('*', (req, res, next) => {
-    if (req.path.startsWith('/api')) return next()
-    const filePath = path.join(siteRoot, req.path === '/' ? 'index.html' : req.path)
-    if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
-      return res.sendFile(filePath)
-    }
-    res.status(404).sendFile(path.join(siteRoot, 'index.html'))
-  })
-
+  mountStatic(app)
   return app
 }
 
@@ -546,25 +555,11 @@ async function main() {
   const uploadDir = process.env.LACKDESIGN_UPLOAD_DIR || path.join(siteRoot, 'data', 'uploads')
   await fs.promises.mkdir(uploadDir, { recursive: true })
 
-  const dbPort = process.env.LACKDESIGN_DB_PORT || '5434'
-  const dbPassword = encodeURIComponent(process.env.POSTGRES_PASSWORD || 'lackdesign')
-  const pool = new Pool({
-    connectionString:
-      process.env.DATABASE_URL ||
-      `postgresql://lackdesign:${dbPassword}@127.0.0.1:${dbPort}/lackdesign`,
-  })
-
-  await initDb(pool)
-  await seedAdminIfNeeded(pool)
-
-  const app = createApp(pool, uploadDir)
-  const port = Number(process.env.PORT) || 8080
+  const app = createApp(null, uploadDir)
+  const port = Number(process.env.PORT || process.env.LACKDESIGN_PORT) || 8080
 
   app.listen(port, () => {
-    console.log(`Lackdesign Portal → http://localhost:${port}`)
-    console.log(`  Website:    /`)
-    console.log(`  Anbieter:   /anbieter.html`)
-    console.log(`  Verwaltung: /admin.html`)
+    console.log(`Lackdesign Website → http://localhost:${port}`)
   })
 }
 

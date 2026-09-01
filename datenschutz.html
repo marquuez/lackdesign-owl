@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Datenschutzerklärung von Lackdesign in Rietberg." />
+  <meta name="description" content="Datenschutzerklärung von Lackdesign – Rietberg-Mastholte, Verl und Bünde." />
   <title>Datenschutz · Lackdesign</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,7 +15,10 @@
     <a href="index.html" class="site-header__logo" aria-label="Zur Startseite">
       <span class="site-header__logo-text">Lackdesign - OWL</span>
     </a>
-    <a href="index.html#kontakt" class="site-header__cta">Kontakt</a>
+    <div class="site-header__end">
+      <a href="index.html#kontakt" class="site-header__cta js-call">Anrufen</a>
+      <a href="index.html#kontakt" class="site-header__cta">Kontakt</a>
+    </div>
   </header>
 
   <main class="legal">
@@ -39,6 +42,7 @@
       Siemensstraße 18<br />
       33397 Rietberg
     </p>
+    <p>Standorte: Lackiererei in Rietberg-Mastholte, Aufbereitung in Verl, Waschstraße in Bünde.</p>
     <p>Datenschutzanfragen richten Sie bitte schriftlich oder persönlich an die oben genannte Anschrift. Weitere Angaben finden Sie im <a href="impressum.html">Impressum</a>.</p>
     <p>Nach unserer derzeitigen Einschätzung besteht keine gesetzliche Verpflichtung zur Benennung eines Datenschutzbeauftragten gemäß Art.&nbsp;37 DSGVO i.&nbsp;V.&nbsp;m. §&nbsp;38 BDSG.</p>
     <p>
@@ -47,7 +51,7 @@
     </p>
 
     <h2>2. Hosting</h2>
-    <p>Diese Website wird bei der STRATO GmbH, Otto-Ostrowski-Straße 7, 10249 Berlin, gehostet. Die Verarbeitung erfolgt in Rechenzentren in Deutschland (u.&nbsp;a. Berlin und Karlsruhe). Personenbezogene Daten, die beim Aufruf oder über Funktionen dieser Website anfallen, werden auf den Servern des Hosters verarbeitet. Dazu gehören insbesondere IP-Adressen, technische Zugriffsdaten sowie Daten, die Sie über die Sammelanfrage übermitteln.</p>
+    <p>Diese Website wird bei der STRATO GmbH, Otto-Ostrowski-Straße 7, 10249 Berlin, gehostet. Die Verarbeitung erfolgt in Rechenzentren in Deutschland (u.&nbsp;a. Berlin und Karlsruhe). Personenbezogene Daten, die beim Aufruf oder über Funktionen dieser Website anfallen, werden auf den Servern des Hosters verarbeitet. Dazu gehören insbesondere IP-Adressen, technische Zugriffsdaten sowie die Angaben, die Sie über das Kontaktformular übermitteln. Auch unser E-Mail-Postfach, über das die Anfragen zugestellt werden, wird bei STRATO betrieben.</p>
     <p>Die Verarbeitung erfolgt auf Grundlage von Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (berechtigtes Interesse an einer sicheren und effizienten Bereitstellung des Online-Angebots) sowie Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO, soweit eine Vertragsanbahnung oder Vertragsdurchführung betroffen ist.</p>
     <p>Mit STRATO als Hosting-Dienstleister besteht die Möglichkeit eines Auftragsverarbeitungsvertrags (AVV) gemäß Art.&nbsp;28 DSGVO. STRATO verarbeitet personenbezogene Daten dabei ausschließlich im Rahmen der Hosting-Leistungen. Weitere Informationen: <a href="https://www.strato.de/datenschutz/" rel="noopener noreferrer" target="_blank">Datenschutzhinweise von STRATO</a>.</p>
 
@@ -60,28 +64,22 @@
     <p>Beim Aufruf der Website speichert der Webserver automatisch technische Informationen, typischerweise Browsertyp und -version, verwendetes Betriebssystem, Referrer-URL, Hostname des zugreifenden Rechners, Datum und Uhrzeit der Anfrage sowie die IP-Adresse. Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (sicherer, stabiler und missbrauchsfreier Betrieb). Die Speicherdauer richtet sich nach den üblichen Einstellungen des Hosters und beträgt in der Regel wenige Tage, soweit keine längere Aufbewahrung zur Aufklärung von Störungen oder Angriffen erforderlich ist.</p>
 
     <h3>Technisch notwendige Speicherung im Browser</h3>
-    <p>Die öffentliche Website speichert im Sitzungsspeicher Ihres Browsers (<code>sessionStorage</code>) den Hinweis <code>lackdesign_intro_seen</code>, damit die Intro-Animation nicht bei jedem Seitenwechsel innerhalb derselben Browsersitzung erneut abgespielt wird. Diese Speicherung ist sitzungsbezogen, wird mit dem Schließen des Tabs bzw. des Browsers gelöscht und dient ausschließlich der Darstellung. Rechtsgrundlage ist §&nbsp;25 Abs.&nbsp;2 TDDDG sowie Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO. Eine Einwilligung ist hierfür nicht erforderlich.</p>
+    <p>Die öffentliche Website speichert im Sitzungsspeicher Ihres Browsers (<code>sessionStorage</code>) ausschließlich Angaben zur Darstellung und Navigation:</p>
+    <ul>
+      <li><code>lackdesign_intro_seen</code> – damit die Intro-Animation nicht bei jedem Seitenwechsel innerhalb derselben Browsersitzung erneut abgespielt wird</li>
+      <li><code>lackdesign_place</code> und <code>lackdesign_restore</code> – damit Sie nach dem Aufruf von Impressum oder Datenschutz an dieselbe Stelle der Startseite zurückkehren</li>
+    </ul>
+    <p>Diese Speicherung ist sitzungsbezogen, wird mit dem Schließen des Tabs bzw. des Browsers gelöscht und dient ausschließlich der Darstellung und Bedienbarkeit. Es findet keine Auswertung zu Analyse- oder Werbezwecken statt. Rechtsgrundlage ist §&nbsp;25 Abs.&nbsp;2 TDDDG sowie Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO. Eine Einwilligung ist hierfür nicht erforderlich.</p>
 
     <h3>Kontaktformular</h3>
-    <p>Das Kontaktformular auf der Startseite wird derzeit nur im Browser bestätigt. Die eingegebenen Angaben (Name, E-Mail-Adresse, gewünschte Leistung, Nachricht) werden nicht an unseren Server und nicht an Dritte übermittelt und dort nicht gespeichert. Es findet insoweit keine Verarbeitung personenbezogener Daten durch uns statt.</p>
-
-    <h3>Sammelanfrage (geschützter Bereich)</h3>
-    <p>Über die Seite Sammelanfrage können Stammkunden nach Eingabe eines Zugangscodes Fahrzeugdaten und Bilder übermitteln. Dabei verarbeiten wir insbesondere:</p>
-    <ul>
-      <li>Firmenname, Ansprechpartner, Telefonnummer und ggf. E-Mail-Adresse</li>
-      <li>Hinweise zur Anfrage</li>
-      <li>Fahrzeugdaten (u.&nbsp;a. Marke/Modell, Kennzeichen und weitere von Ihnen angegebene Angaben)</li>
-      <li>hochgeladene Fotos</li>
-    </ul>
-    <p>Die Daten werden auf unserem bei STRATO in Deutschland betriebenen Server gespeichert (Datenbank und Dateiablage) und intern zur Bearbeitung der Anfrage verwendet. Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO (vorvertragliche oder vertragliche Kommunikation) bzw. Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO bei sonstigen betrieblichen Anfragen. Die Speicherung erfolgt, solange die Bearbeitung und etwaige Nachfragen es erfordern; gesetzliche Aufbewahrungspflichten bleiben unberührt.</p>
-    <p>Der Zugangscode wird für die Dauer der Browsersitzung im Sitzungsspeicher des Browsers gehalten, damit Sie die Anfrage ohne erneute Eingabe absenden können. Er wird nicht zu Werbe- oder Analysezwecken ausgewertet.</p>
-
-    <h3>Interner Verwaltungsbereich</h3>
-    <p>Für die interne Bearbeitung der Sammelanfragen gibt es einen passwortgeschützten Verwaltungsbereich. Dort wird nach der Anmeldung ein Sitzungstoken im lokalen Speicher des Browsers (<code>localStorage</code>) abgelegt. Dieser Bereich ist nicht für Websitebesucher bestimmt. Rechtsgrundlage für die damit verbundene Verarbeitung ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (Organisation und Sicherheit der internen Vorgangsbearbeitung) bzw. Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO, soweit die Daten der Auftragserfüllung dienen.</p>
+    <p>Über das Kontaktformular auf der Startseite können Sie uns Name, E-Mail-Adresse, optional Telefonnummer, gewünschte Leistung und Ihre Nachricht übermitteln. Mit dem Absenden willigen Sie in die Verarbeitung dieser Angaben zur Bearbeitung Ihrer Anfrage ein (Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;a und lit.&nbsp;b DSGVO).</p>
+    <p>Die Nachricht wird über unseren E-Mail-Posteingang bei der STRATO GmbH zugestellt. Zusätzlich erhalten Sie eine automatische Bestätigung an die von Ihnen angegebene E-Mail-Adresse. Die Angaben werden nicht in einer Datenbank auf der Website gespeichert, sondern ausschließlich als E-Mail verarbeitet. Die Daten werden nur zur Bearbeitung der Anfrage verwendet und nicht an Dritte zu Werbezwecken weitergegeben. Die Speicherdauer richtet sich nach der Bearbeitung und etwaigen gesetzlichen Aufbewahrungspflichten.</p>
+    <p>Zum Schutz vor automatisiertem Missbrauch begrenzen wir die Anzahl der Absendevorgänge je IP-Adresse. Die IP-Adresse wird hierfür kurzzeitig im Arbeitsspeicher des Servers vorgehalten und nicht dauerhaft gespeichert. Zusätzlich enthält das Formular ein für Sie unsichtbares Feld zur Spam-Erkennung. Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (Schutz vor Missbrauch).</p>
+    <p>Die Angabe von Name, E-Mail-Adresse und Nachricht ist erforderlich, um die Anfrage bearbeiten und beantworten zu können. Die Angabe der Telefonnummer ist freiwillig. Ihre Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen (Art.&nbsp;7 Abs.&nbsp;3 DSGVO); die Rechtmäßigkeit der bis dahin erfolgten Verarbeitung bleibt unberührt.</p>
 
     <h2>4. Schriftarten (Google Fonts)</h2>
     <p>Zur einheitlichen Darstellung binden wir Schriftarten von Google Fonts ein (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland; Mutterunternehmen: Google LLC, USA). Beim Aufruf der Website stellt Ihr Browser eine Verbindung zu Servern von Google her (<code>fonts.googleapis.com</code>, <code>fonts.gstatic.com</code>) und lädt die verwendeten Schriften. Dabei wird Ihre IP-Adresse an Google übermittelt; Google kann weitere technische Daten (z.&nbsp;B. Browser- und Geräteinformationen) verarbeiten und Schriftdateien im Browser zwischenspeichern.</p>
-    <p>Auf der öffentlichen Website werden Oswald und Manrope geladen, im Sammel- und Verwaltungsbereich zusätzlich Inter und Bebas Neue.</p>
+    <p>Geladen werden die Schriftfamilien Oswald und Manrope.</p>
     <p>Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (einheitliches Erscheinungsbild und technisch zuverlässige Darstellung) in Verbindung mit §&nbsp;25 Abs.&nbsp;2 TDDDG, soweit die Einbindung für die gewünschte Darstellung erforderlich ist. Soweit eine Übermittlung in die USA erfolgt, stützen wir uns auf geeignete Garantien gemäß Art.&nbsp;44&nbsp;ff. DSGVO, insbesondere das EU-U.S. Data Privacy Framework (soweit Google zertifiziert ist) bzw. Standardvertragsklauseln. Weitere Informationen: <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">Datenschutzhinweise von Google</a>.</p>
 
     <h2>5. Bilder von Unsplash</h2>
@@ -93,7 +91,7 @@
 
     <h2>7. Speicherdauer und Drittlandübermittlung</h2>
     <p>Soweit in dieser Erklärung keine kürzere Frist genannt wird, verarbeiten wir personenbezogene Daten nur, solange der Zweck fortbesteht. Gesetzliche Aufbewahrungsfristen (z.&nbsp;B. handels- und steuerrechtlich) bleiben unberührt.</p>
-    <p>Einwilligungen holen wir derzeit nicht ein, weil keine optionalen Cookies oder Analyse-Dienste eingesetzt werden. Soweit Dienste mit Sitz in Drittländern (Google Fonts, Unsplash) Daten empfangen, erfolgt die Übermittlung auf Grundlage geeigneter Garantien gemäß Art.&nbsp;44&nbsp;ff. DSGVO, insbesondere Standardvertragsklauseln und – soweit anwendbar – des EU-U.S. Data Privacy Framework (Art.&nbsp;45 DSGVO).</p>
+    <p>Für optionale Cookies oder Analyse-Dienste holen wir keine Einwilligung ein, weil wir solche Dienste nicht einsetzen. Eine Einwilligung erklären Sie lediglich beim Absenden des Kontaktformulars für die Verarbeitung der dort angegebenen Daten (siehe Abschnitt&nbsp;3). Soweit Dienste mit Sitz in Drittländern (Google Fonts, Unsplash) Daten empfangen, erfolgt die Übermittlung auf Grundlage geeigneter Garantien gemäß Art.&nbsp;44&nbsp;ff. DSGVO, insbesondere Standardvertragsklauseln und – soweit anwendbar – des EU-U.S. Data Privacy Framework (Art.&nbsp;45 DSGVO).</p>
 
     <h2>8. Betroffenenrechte</h2>
     <p>Sie haben nach Maßgabe der DSGVO insbesondere folgende Rechte:</p>
@@ -104,6 +102,7 @@
       <li>Einschränkung der Verarbeitung (Art.&nbsp;18 DSGVO)</li>
       <li>Datenübertragbarkeit (Art.&nbsp;20 DSGVO)</li>
       <li>Widerspruch gegen Verarbeitungen auf Grundlage von Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (Art.&nbsp;21 DSGVO)</li>
+      <li>Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft (Art.&nbsp;7 Abs.&nbsp;3 DSGVO)</li>
       <li>Beschwerde bei einer Aufsichtsbehörde (Art.&nbsp;77 DSGVO)</li>
     </ul>
     <p>Wir setzen keine automatisierte Entscheidungsfindung und kein Profiling im Sinne von Art.&nbsp;22 DSGVO ein.</p>
@@ -114,12 +113,14 @@
 
     <h2>10. Änderungen dieser Datenschutzerklärung</h2>
     <p>Wir passen diese Datenschutzerklärung an, wenn sich unsere Website, eingesetzte Dienste oder rechtliche Vorgaben ändern. Die jeweils aktuelle Fassung ist jederzeit auf dieser Seite abrufbar.</p>
+    <p>Stand: September 2026</p>
   </main>
 
   <footer class="site-footer">
     <div class="site-footer__inner">
       <div class="site-footer__brand">
         <span>Lackdesign - OWL</span>
+        <span class="site-footer__places">Rietberg-Mastholte · Verl · Bünde</span>
       </div>
       <nav class="site-footer__nav" aria-label="Leistungen">
         <a href="index.html#lackdesign">Lackiererei</a>
@@ -129,6 +130,7 @@
         <a href="index.html#keramikFlip">Keramikversiegelung</a>
       </nav>
       <nav class="site-footer__legal" aria-label="Kontakt und Rechtliches">
+        <a href="index.html#kontakt" class="js-call">Anrufen</a>
         <a href="index.html#kontakt">Kontakt</a>
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>

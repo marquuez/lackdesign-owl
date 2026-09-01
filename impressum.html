@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Impressum von Lackdesign – Christof Lempa, Rietberg." />
+  <meta name="description" content="Impressum von Lackdesign – Christof Lempa, Rietberg-Mastholte, Verl und Bünde." />
   <title>Impressum · Lackdesign</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,7 +15,10 @@
     <a href="index.html" class="site-header__logo" aria-label="Zur Startseite">
       <span class="site-header__logo-text">Lackdesign - OWL</span>
     </a>
-    <a href="index.html#kontakt" class="site-header__cta">Kontakt</a>
+    <div class="site-header__end">
+      <a href="index.html#kontakt" class="site-header__cta js-call">Anrufen</a>
+      <a href="index.html#kontakt" class="site-header__cta">Kontakt</a>
+    </div>
   </header>
 
   <main class="legal">
@@ -41,7 +44,17 @@
     </p>
 
     <h2>Kontakt</h2>
-    <p>Anfragen nehmen wir über das <a href="index.html#kontakt">Kontaktformular</a> auf der Website entgegen. Sie erreichen uns außerdem persönlich zu unseren Öffnungszeiten.</p>
+    <p>
+      Anfragen nehmen wir über das <a href="index.html#kontakt">Kontaktformular</a> auf der Website entgegen.
+      Telefon- und E-Mail-Angaben hinterlegen wir in den öffentlichen Kontaktdaten der Website, sobald sie feststehen.
+    </p>
+
+    <h2>Standorte</h2>
+    <dl class="places-list">
+      <div><dt>Lackiererei</dt><dd>Rietberg-Mastholte</dd></div>
+      <div><dt>Aufbereitung</dt><dd>Verl</dd></div>
+      <div><dt>Waschstraße</dt><dd>Bünde</dd></div>
+    </dl>
 
     <h2>Öffnungszeiten</h2>
     <p>Montag–Freitag 08:00–17:00<br />Samstag und Sonntag geschlossen</p>
@@ -68,6 +81,7 @@
     <div class="site-footer__inner">
       <div class="site-footer__brand">
         <span>Lackdesign - OWL</span>
+        <span class="site-footer__places">Rietberg-Mastholte · Verl · Bünde</span>
       </div>
       <nav class="site-footer__nav" aria-label="Leistungen">
         <a href="index.html#lackdesign">Lackiererei</a>
@@ -77,6 +91,7 @@
         <a href="index.html#keramikFlip">Keramikversiegelung</a>
       </nav>
       <nav class="site-footer__legal" aria-label="Kontakt und Rechtliches">
+        <a href="index.html#kontakt" class="js-call">Anrufen</a>
         <a href="index.html#kontakt">Kontakt</a>
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>

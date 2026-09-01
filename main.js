@@ -259,21 +259,51 @@
   const heroIso = document.getElementById('hero');
   const heroIsoFrame = document.getElementById('heroIsoFrame');
   const heroSticky = heroIso?.querySelector('.hero');
+  const heroActions = heroIso?.querySelector('.hero__actions');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  function easeSmooth(t) {
+    return t * t * (3 - 2 * t);
+  }
+
   function updateHeroIso() {
-    if (!heroIso || !heroIsoFrame || reduceMotion) return;
+    if (!heroIso || !heroIsoFrame) return;
+
+    if (reduceMotion) {
+      heroActions?.style.setProperty('--hero-actions-rise', '0px');
+      heroActions?.classList.add('is-ready');
+      heroActions?.removeAttribute('aria-hidden');
+      return;
+    }
+
     const travel = heroIso.offsetHeight - window.innerHeight;
     if (travel <= 0) return;
     const rect = heroIso.getBoundingClientRect();
     const scrolled = Math.min(Math.max(-rect.top, 0), travel);
-    const p = scrolled / travel;
-    const eased = p * p * (3 - 2 * p);
-    const rx = eased * 92;
-    const rz = eased * -4;
-    heroIsoFrame.style.transform = `rotateX(${rx}deg) rotateZ(${rz}deg)`;
-    heroIsoFrame.style.pointerEvents = p > 0.45 ? 'none' : '';
-    heroSticky?.classList.toggle('is-folded', p > 0.96);
+    const foldTravel = window.innerHeight;
+    const actionTravel = Math.max(travel - foldTravel, 1);
+
+    let rise = 1;
+    let foldP = 0;
+    const riseTravel = Math.min(window.innerHeight * 0.48, actionTravel * 0.36);
+    if (scrolled <= riseTravel) {
+      rise = scrolled / Math.max(riseTravel, 1);
+    } else if (scrolled <= actionTravel) {
+      rise = 1;
+    } else {
+      foldP = Math.min((scrolled - actionTravel) / foldTravel, 1);
+    }
+
+    const startY = window.innerHeight * 0.72;
+    const actionsReady = rise > 0.92;
+    heroActions?.style.setProperty('--hero-actions-rise', `${(1 - easeSmooth(rise)) * startY}px`);
+    heroActions?.classList.toggle('is-ready', actionsReady);
+    heroActions?.toggleAttribute('aria-hidden', !actionsReady);
+
+    const eased = easeSmooth(foldP);
+    heroIsoFrame.style.transform = `rotateX(${eased * 92}deg) rotateZ(${eased * -4}deg)`;
+    heroIsoFrame.style.pointerEvents = foldP > 0.45 ? 'none' : '';
+    heroSticky?.classList.toggle('is-folded', foldP > 0.96);
   }
 
   /* ─── Parallax on tiles ─── */
@@ -374,15 +404,144 @@
   });
 
   /* ─── Contact form ─── */
-  contactForm?.addEventListener('submit', (e) => {
+  const contactStatus = document.getElementById('contactStatus');
+  const callDock = document.getElementById('callDock');
+
+  function applyPublicContact(site) {
+    if (site?.phoneHref) {
+      document.querySelectorAll('.js-call').forEach((el) => {
+        el.href = site.phoneHref;
+        if (el.classList.contains('contact__direct') || el.closest('.contact__direct')) {
+          el.textContent = site.phone;
+        }
+      });
+      document.querySelectorAll('.contact__direct .js-call').forEach((el) => {
+        el.textContent = site.phone;
+      });
+      if (callDock) {
+        callDock.classList.add('is-on');
+        callDock.removeAttribute('hidden');
+        document.body.classList.add('has-call-dock');
+      }
+    }
+    if (site?.mailHref) {
+      document.querySelectorAll('.js-mail').forEach((el) => {
+        el.href = site.mailHref;
+        el.textContent = site.email;
+      });
+    }
+  }
+
+  function normalizeContact(raw) {
+    const phone = String(raw?.phone || '').trim();
+    const email = String(raw?.email || '').trim();
+    return {
+      phone,
+      phoneHref: phone ? `tel:${phone.replace(/[^\d+]/g, '')}` : '',
+      email,
+      mailHref: email ? `mailto:${email}` : '',
+    };
+  }
+
+  let publicContact = normalizeContact(window.LACKDESIGN_SITE);
+  applyPublicContact(publicContact);
+
+  fetch('/api/site')
+    .then((res) => (res.ok ? res.json() : null))
+    .then((site) => {
+      if (!site?.phoneHref && !site?.mailHref) return;
+      publicContact = site;
+      applyPublicContact(site);
+    })
+    .catch(() => {});
+
+  function openMailClient(payload, serviceLabel) {
+    if (!publicContact.email) return false;
+    const body = [
+      `Name: ${payload.name}`,
+      `E-Mail: ${payload.email}`,
+      `Telefon: ${payload.phone || '—'}`,
+      `Leistung: ${serviceLabel}`,
+      '',
+      payload.message,
+    ].join('\r\n');
+    const query = `subject=${encodeURIComponent(`Anfrage über die Website – ${serviceLabel}`)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:${publicContact.email}?${query}`;
+    return true;
+  }
+
+  contactForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = contactForm.querySelector('.btn-submit span');
     const original = btn?.textContent;
-    if (btn) btn.textContent = 'Gesendet ✓';
-    contactForm.reset();
-    setTimeout(() => {
+    const submitBtn = contactForm.querySelector('.btn-submit');
+    if (contactStatus) {
+      contactStatus.hidden = true;
+      contactStatus.className = 'form-status';
+    }
+    if (submitBtn) submitBtn.disabled = true;
+    if (btn) btn.textContent = 'Senden …';
+
+    try {
+      const payload = {
+        name: contactForm.name.value,
+        email: contactForm.email.value,
+        phone: contactForm.phone?.value || '',
+        service: contactForm.service.value,
+        message: contactForm.message.value,
+        company: contactForm.company?.value || '',
+        privacy: Boolean(contactForm.privacy?.checked),
+      };
+
+      let res = null;
+      try {
+        res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      } catch {
+        res = null;
+      }
+
+      // Auf statischem Hosting gibt es keinen Versand-Endpunkt. Dann uebergeben
+      // wir die Anfrage an das E-Mail-Programm, statt Erfolg vorzutaeuschen.
+      if (!res || res.status === 404 || res.status === 405) {
+        const label = contactForm.service.selectedOptions[0]?.textContent || payload.service;
+        if (!openMailClient(payload, label)) {
+          throw new Error('Das Formular ist derzeit nicht aktiv. Bitte rufen Sie uns an.');
+        }
+        if (btn && original) btn.textContent = original;
+        if (contactStatus) {
+          contactStatus.hidden = false;
+          contactStatus.className = 'form-status is-ok';
+          contactStatus.textContent = 'Ihr E-Mail-Programm wurde mit der Anfrage geöffnet. Bitte schicken Sie die Nachricht dort ab.';
+        }
+        return;
+      }
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Senden fehlgeschlagen.');
+      contactForm.reset();
+      if (btn) btn.textContent = 'Gesendet ✓';
+      if (contactStatus) {
+        contactStatus.hidden = false;
+        contactStatus.className = 'form-status is-ok';
+        contactStatus.textContent = 'Danke. Wir haben Ihre Anfrage erhalten und senden Ihnen eine Bestätigung per E-Mail.';
+      }
+      setTimeout(() => {
+        if (btn && original) btn.textContent = original;
+      }, 3500);
+    } catch (err) {
       if (btn && original) btn.textContent = original;
-    }, 2500);
+      if (contactStatus) {
+        contactStatus.hidden = false;
+        contactStatus.className = 'form-status is-err';
+        contactStatus.textContent = err.message || 'Nachricht konnte nicht gesendet werden.';
+      }
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+    }
   });
 
   /* ─── Scroll handler ─── */
