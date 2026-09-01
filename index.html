@@ -18,6 +18,15 @@
   <link rel="stylesheet" href="styles.css" />
   <script>
     (function () {
+      var open = false;
+      try {
+        open = sessionStorage.getItem('lackdesign_gate') === 'ok';
+      } catch (e) {}
+      if (!open) document.documentElement.classList.add('is-locked');
+    })();
+  </script>
+  <script>
+    (function () {
       try {
         var nav = performance.getEntriesByType('navigation')[0];
         var isReload = nav && nav.type === 'reload';
@@ -830,6 +839,7 @@
 
   <a href="#kontakt" class="call-dock js-call" id="callDock" hidden>Anrufen</a>
 
+  <script src="gate.js"></script>
   <script src="site-config.js"></script>
   <script src="main.js"></script>
 </body>

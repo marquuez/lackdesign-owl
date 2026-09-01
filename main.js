@@ -660,12 +660,22 @@
   });
 
   /* ─── Init ─── */
-  initHeroVideo();
-  initRevealObserver();
-  runIntro();
-  updateHeader();
-  updatePageNav();
-  updateHeroIso();
-  updatePromoFly();
-  syncPromoFromHash();
+  function boot() {
+    initHeroVideo();
+    initRevealObserver();
+    runIntro();
+    updateHeader();
+    updatePageNav();
+    updateHeroIso();
+    updatePromoFly();
+    syncPromoFromHash();
+  }
+
+  // Hinter dem Zugangscode wartet der Seitenaufbau, sonst laeuft das Intro
+  // unsichtbar ab und waere nach dem Entsperren schon vorbei.
+  if (document.documentElement.classList.contains('is-locked')) {
+    document.addEventListener('lackdesign:unlock', boot, { once: true });
+  } else {
+    boot();
+  }
 })();
