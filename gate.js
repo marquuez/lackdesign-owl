@@ -9,7 +9,6 @@
   'use strict';
 
   const CODE = '222222';
-  const KEY = 'lackdesign_gate';
   const root = document.documentElement;
 
   if (!root.classList.contains('is-locked')) return;
@@ -52,12 +51,7 @@
       return;
     }
 
-    try {
-      sessionStorage.setItem(KEY, 'ok');
-    } catch {
-      /* ignore */
-    }
-
+    // Bewusst nichts speichern: nach jedem Neuladen wird erneut gefragt.
     gate.remove();
     root.classList.remove('is-locked');
     document.dispatchEvent(new Event('lackdesign:unlock'));

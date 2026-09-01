@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="is-locked">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,15 +18,6 @@
   <link rel="stylesheet" href="styles.css" />
   <script>
     (function () {
-      var open = false;
-      try {
-        open = sessionStorage.getItem('lackdesign_gate') === 'ok';
-      } catch (e) {}
-      if (!open) document.documentElement.classList.add('is-locked');
-    })();
-  </script>
-  <script>
-    (function () {
       try {
         var nav = performance.getEntriesByType('navigation')[0];
         var isReload = nav && nav.type === 'reload';
@@ -38,6 +29,12 @@
   </script>
 </head>
 <body>
+  <noscript>
+    <div class="gate-noscript">
+      <p>Diese Seite benötigt JavaScript. Bitte aktivieren Sie es, um den Zugangscode einzugeben.</p>
+    </div>
+  </noscript>
+
   <!-- Intro / Autoloader -->
   <div id="intro" class="intro" aria-hidden="true" aria-busy="true" aria-label="Lackdesign OWL wird geladen">
     <div class="intro__inner">
