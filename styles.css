@@ -785,7 +785,7 @@ body.menu-open .site-header {
   pointer-events: none;
   transform: translate3d(-50%, -50%, 0);
   transform-origin: center center;
-  will-change: transform, opacity, filter;
+  will-change: top, opacity, filter;
   opacity: 0;
 }
 
@@ -793,6 +793,7 @@ body.menu-open .site-header {
   display: block;
   height: 64px;
   width: auto;
+  max-width: min(92vw, 640px);
   filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.45));
 }
 

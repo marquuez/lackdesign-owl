@@ -276,13 +276,13 @@
     const foldEased = easeSmooth(Math.min(foldP / 0.32, 1));
     const mobile = window.matchMedia('(max-width: 899px)').matches;
     const logoImg = heroLogo.querySelector('img');
-    const startH = parseFloat(logoImg ? getComputedStyle(logoImg).height : '') || (mobile ? 48 : 64);
+    const startH = mobile ? 48 : 64;
     const targetH = Math.min(
       window.innerWidth * (mobile ? 0.68 : 0.5),
       window.innerHeight * (mobile ? 0.3 : 0.36),
       mobile ? 230 : 400
     );
-    const scale = 1 + (Math.max(targetH / Math.max(startH, 1), 1) - 1) * riseEased;
+    const logoH = startH + (targetH - startH) * riseEased;
     const startY = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72) / 2;
     const endY = window.innerHeight * (mobile ? 0.38 : 0.42);
     const y = startY + (endY - startY) * riseEased;
@@ -290,8 +290,11 @@
     const opacity = visible * (1 - foldEased);
     const blur = foldEased * 22;
 
+    if (logoImg) {
+      logoImg.style.height = `${logoH}px`;
+    }
     heroLogo.style.top = `${y}px`;
-    heroLogo.style.transform = `translate3d(-50%, -50%, 0) scale(${scale})`;
+    heroLogo.style.transform = 'translate3d(-50%, -50%, 0)';
     heroLogo.style.opacity = String(opacity);
     heroLogo.style.filter = blur > 0.4 ? `blur(${blur}px)` : '';
 
@@ -319,7 +322,10 @@
       heroActions?.style.setProperty('--hero-actions-rise', '0px');
       heroActions?.classList.add('is-ready');
       heroActions?.removeAttribute('aria-hidden');
-      if (heroLogo) heroLogo.style.opacity = '0';
+      if (heroLogo) {
+        heroLogo.style.opacity = '0';
+        heroLogo.querySelector('img')?.style.removeProperty('height');
+      }
       if (headerLogo) {
         headerLogo.style.opacity = '';
         headerLogo.classList.remove('is-away');
