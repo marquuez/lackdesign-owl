@@ -8,4 +8,11 @@
 window.LACKDESIGN_SITE = {
   phone: '',
   email: '',
+  /*
+   * Google Analytics 4 Mess-ID, z. B. 'G-XXXXXXXXXX'.
+   * Leer = kein Tracking. Nach dem Eintrag: Cookie-Banner
+   * „Alle akzeptieren“ oder Kategorie „Analytische Cookies“ erlauben.
+   * Ohne diese Zustimmung wird gtag.js nicht geladen.
+   */
+  gaMeasurementId: '',
 };

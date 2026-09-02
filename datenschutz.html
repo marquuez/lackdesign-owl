@@ -9,11 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <script src="site-config.js"></script>
+  <script src="cookies.js"></script>
 </head>
 <body class="legal-page">
   <header class="site-header" id="siteHeader">
     <a href="index.html" class="site-header__logo" aria-label="Zur Startseite">
-      <span class="site-header__logo-text">Lackdesign - OWL</span>
+      <img src="assets/logo.png" alt="Lackdesign OWL" class="site-header__logo-img" width="928" height="622" />
     </a>
     <div class="site-header__end">
       <a href="index.html#kontakt" class="site-header__cta js-call">Anrufen</a>
@@ -57,8 +59,25 @@
 
     <h2>3. Datenerfassung auf dieser Website</h2>
 
-    <h3>Keine Cookies, kein Consent-Banner</h3>
-    <p>Wir setzen keine Cookies und keine Analyse-, Marketing- oder Tracking-Dienste ein. Es gibt keinen Cookie-Banner, weil keine optionalen Speicherungen erfolgen. Wir verwenden weder Google Analytics noch vergleichbare Werkzeuge, weder reCAPTCHA noch Formular-Dienste Dritter, weder eingebettete Karten noch Chat-Widgets.</p>
+    <h3>Cookies und Consent-Management</h3>
+    <p>Wir verwenden Cookies und vergleichbare Technologien nur in dem Umfang, der für den Betrieb der Website und – soweit optional – für Statistik oder erweiterte Funktionen erforderlich bzw. von Ihnen gewünscht ist. Dabei richten wir uns nach der EU-Datenschutz-Grundverordnung (DSGVO), dem Bundesdatenschutzgesetz (BDSG) und dem Telekommunikation-Digitale-Dienste-Datenschutz-Gesetz (TDDDG).</p>
+
+    <h4>Notwendige Cookies und Speicherungen</h4>
+    <p>Technisch notwendige Speicherungen erfolgen auf Grundlage von §&nbsp;25 Abs.&nbsp;2 TDDDG. Eine Einwilligung ist hierfür nicht erforderlich. Parallel stützen wir die Verarbeitung personenbezogener Daten, soweit betroffen, auf Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (berechtigtes Interesse an einem sicheren, stabilen und missbrauchsfreien Websitebetrieb) bzw. Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO, wenn die Funktion der Anbahnung oder Durchführung einer Anfrage dient. Unter notwendige Cookies und Speicherungen fallen insbesondere:</p>
+    <ul>
+      <li>Speicherung Ihrer Cookie-Auswahl im Speicher Ihres Browsers (<code>localStorage</code>, Schlüssel <code>cookiePreferences</code>), damit der Banner nicht bei jedem Besuch erneut erscheint und Ihre Entscheidung dokumentiert bleibt</li>
+      <li>technisch erforderliche Session-Speicherungen für Darstellung und Navigation (siehe unten)</li>
+      <li>Spam- und Missbrauchsschutz beim Kontaktformular (Rate-Limiting und unsichtbares Feld), ohne Drittanbieter-Cookies</li>
+    </ul>
+    <p>Diese Funktionen sind für den bestimmungsgemäßen Betrieb der Website erforderlich. Marketing-Cookies setzen wir nicht ein.</p>
+
+    <h4>Optionale Cookies (Einwilligung erforderlich)</h4>
+    <p>Für alle nicht notwendigen Cookies und vergleichbaren Technologien holen wir Ihre Einwilligung über den Cookie-Banner ein. Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;a DSGVO i.&nbsp;V.&nbsp;m. §&nbsp;25 Abs.&nbsp;1 TDDDG. Nicht notwendige Kategorien sind nicht vorausgewählt. „Alle ablehnen“ ist auf der ersten Ebene genauso erreichbar wie „Alle akzeptieren“. Sie können Kategorien einzeln wählen und Ihre Entscheidung jederzeit über „Cookie-Einstellungen“ im Footer ändern oder widerrufen. Optional setzen wir derzeit ein:</p>
+    <ul>
+      <li>Analytische Cookies (Google Analytics), nur nach ausdrücklicher Zustimmung zur Kategorie „Analytische Cookies“ bzw. über „Alle akzeptieren“</li>
+      <li>Funktionale Cookies für optionale erweiterte Funktionen, sofern Sie diese Kategorie freigeben. Derzeit setzen wir in dieser Kategorie keine zusätzlichen Cookies.</li>
+    </ul>
+    <p>Ohne Ihre Einwilligung werden optionale Analyse- und Funktions-Cookies nicht gesetzt. Das Google-Analytics-Script wird in diesem Fall nicht geladen. Externe Einbindungen wie Google Maps starten erst nach Ihrem ausdrücklichen Klick auf den jeweiligen Link.</p>
 
     <h3>Server-Logdateien</h3>
     <p>Beim Aufruf der Website speichert der Webserver automatisch technische Informationen, typischerweise Browsertyp und -version, verwendetes Betriebssystem, Referrer-URL, Hostname des zugreifenden Rechners, Datum und Uhrzeit der Anfrage sowie die IP-Adresse. Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (sicherer, stabiler und missbrauchsfreier Betrieb). Die Speicherdauer richtet sich nach den üblichen Einstellungen des Hosters und beträgt in der Regel wenige Tage, soweit keine längere Aufbewahrung zur Aufklärung von Störungen oder Angriffen erforderlich ist.</p>
@@ -77,23 +96,29 @@
     <p>Zum Schutz vor automatisiertem Missbrauch begrenzen wir die Anzahl der Absendevorgänge je IP-Adresse. Die IP-Adresse wird hierfür kurzzeitig im Arbeitsspeicher des Servers vorgehalten und nicht dauerhaft gespeichert. Zusätzlich enthält das Formular ein für Sie unsichtbares Feld zur Spam-Erkennung. Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (Schutz vor Missbrauch).</p>
     <p>Die Angabe von Name, E-Mail-Adresse und Nachricht ist erforderlich, um die Anfrage bearbeiten und beantworten zu können. Die Angabe der Telefonnummer ist freiwillig. Ihre Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen (Art.&nbsp;7 Abs.&nbsp;3 DSGVO); die Rechtmäßigkeit der bis dahin erfolgten Verarbeitung bleibt unberührt.</p>
 
-    <h2>4. Schriftarten (Google Fonts)</h2>
+    <h2>4. Google Analytics</h2>
+    <p>Sofern eine Mess-ID hinterlegt ist, erfolgt die Auswertung durch Google Analytics (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland; Mutterunternehmen: Google LLC, USA). Google Analytics wird erst geladen, wenn Sie im Cookie-Banner der Kategorie „Analytische Cookies“ zugestimmt haben bzw. „Alle akzeptieren“ gewählt haben. Ohne diese Einwilligung findet keine Analyse durch Google Analytics statt: Es wird kein Google-Tag geladen, und es werden keine Analyse-Cookies (z.&nbsp;B. <code>_ga</code>) gesetzt.</p>
+    <p>Verarbeitet werden u.&nbsp;a. IP-Adresse (gekürzt/anonymisiert, soweit vom Dienst unterstützt), besuchte Seiten, Verweildauer, Referrer sowie Geräte- und Browserinformationen. Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;a DSGVO i.&nbsp;V.&nbsp;m. §&nbsp;25 Abs.&nbsp;1 TDDDG. Die Speicherdauer richtet sich nach den Einstellungen beim Analyse-Anbieter. Weitere Informationen: <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">Datenschutzhinweise von Google</a>.</p>
+    <p>Wir nutzen Googles Consent Mode v2. Vor einer Einwilligung bleibt <code>analytics_storage</code> auf „denied“. Werbe-Cookies (<code>ad_storage</code>, <code>ad_user_data</code>, <code>ad_personalization</code>) bleiben dauerhaft abgelehnt; Marketing-Tags setzen wir nicht ein. Widerrufen Sie die Analyse-Einwilligung, werden gesetzte Google-Analytics-Cookies gelöscht und das Tracking gestoppt.</p>
+
+    <h2>5. Schriftarten (Google Fonts)</h2>
     <p>Zur einheitlichen Darstellung binden wir Schriftarten von Google Fonts ein (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland; Mutterunternehmen: Google LLC, USA). Beim Aufruf der Website stellt Ihr Browser eine Verbindung zu Servern von Google her (<code>fonts.googleapis.com</code>, <code>fonts.gstatic.com</code>) und lädt die verwendeten Schriften. Dabei wird Ihre IP-Adresse an Google übermittelt; Google kann weitere technische Daten (z.&nbsp;B. Browser- und Geräteinformationen) verarbeiten und Schriftdateien im Browser zwischenspeichern.</p>
     <p>Geladen werden die Schriftfamilien Oswald und Manrope.</p>
     <p>Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (einheitliches Erscheinungsbild und technisch zuverlässige Darstellung) in Verbindung mit §&nbsp;25 Abs.&nbsp;2 TDDDG, soweit die Einbindung für die gewünschte Darstellung erforderlich ist. Soweit eine Übermittlung in die USA erfolgt, stützen wir uns auf geeignete Garantien gemäß Art.&nbsp;44&nbsp;ff. DSGVO, insbesondere das EU-U.S. Data Privacy Framework (soweit Google zertifiziert ist) bzw. Standardvertragsklauseln. Weitere Informationen: <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">Datenschutzhinweise von Google</a>.</p>
 
-    <h2>5. Bilder von Unsplash</h2>
+    <h2>6. Bilder von Unsplash</h2>
     <p>Einzelne Hintergrundbilder werden von Unsplash geladen (Unsplash Inc., typischerweise über <code>images.unsplash.com</code>). Beim Anzeigen dieser Bilder stellt Ihr Browser eine Verbindung zu Servern von Unsplash her. Dabei kann Ihre IP-Adresse sowie übliche technische Abrufdaten übermittelt werden. Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (anschauliche Gestaltung der Website). Eine Übermittlung in Drittländer (insbesondere die USA) kann nicht ausgeschlossen werden; sie erfolgt, soweit einschlägig, auf Grundlage geeigneter Garantien gemäß Art.&nbsp;44&nbsp;ff. DSGVO. Weitere Informationen: <a href="https://unsplash.com/privacy" rel="noopener noreferrer" target="_blank">Datenschutzhinweise von Unsplash</a>.</p>
     <p>Das Startvideo und weitere eigene Medien liegen auf unserem Server und werden nicht von Drittanbietern ausgeliefert.</p>
 
-    <h2>6. Externe Links (Google Maps)</h2>
+    <h2>7. Externe Links (Google Maps)</h2>
     <p>Wir setzen Links zu Google Maps (Anfahrt, Waschstraße). Es handelt sich um gewöhnliche Verweise, keine eingebettete Karte. Beim bloßen Aufruf unserer Website wird keine Verbindung zu Google Maps aufgebaut. Erst wenn Sie den Link anklicken, gelten die Datenschutzbestimmungen von Google. Rechtsgrundlage für die Verlinkung ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (einfache Wegbeschreibung).</p>
 
-    <h2>7. Speicherdauer und Drittlandübermittlung</h2>
+    <h2>8. Speicherdauer, Widerruf und Drittlandübermittlung</h2>
     <p>Soweit in dieser Erklärung keine kürzere Frist genannt wird, verarbeiten wir personenbezogene Daten nur, solange der Zweck fortbesteht. Gesetzliche Aufbewahrungsfristen (z.&nbsp;B. handels- und steuerrechtlich) bleiben unberührt.</p>
-    <p>Für optionale Cookies oder Analyse-Dienste holen wir keine Einwilligung ein, weil wir solche Dienste nicht einsetzen. Eine Einwilligung erklären Sie lediglich beim Absenden des Kontaktformulars für die Verarbeitung der dort angegebenen Daten (siehe Abschnitt&nbsp;3). Soweit Dienste mit Sitz in Drittländern (Google Fonts, Unsplash) Daten empfangen, erfolgt die Übermittlung auf Grundlage geeigneter Garantien gemäß Art.&nbsp;44&nbsp;ff. DSGVO, insbesondere Standardvertragsklauseln und – soweit anwendbar – des EU-U.S. Data Privacy Framework (Art.&nbsp;45 DSGVO).</p>
+    <p>Sie können eine erteilte Einwilligung jederzeit über den Link „Cookie-Einstellungen“ im Footer oder erneut über den Cookie-Banner widerrufen. Die Rechtmäßigkeit der Verarbeitung bis zum Widerruf bleibt unberührt. Eine Einwilligung erklären Sie außerdem beim Absenden des Kontaktformulars für die Verarbeitung der dort angegebenen Daten (siehe Abschnitt&nbsp;3).</p>
+    <p>Soweit Dienste mit Sitz in Drittländern (Google Analytics, Google Fonts, Unsplash) Daten empfangen, erfolgt die Übermittlung auf Grundlage geeigneter Garantien gemäß Art.&nbsp;44&nbsp;ff. DSGVO, insbesondere Standardvertragsklauseln und – soweit anwendbar – des EU-U.S. Data Privacy Framework (Art.&nbsp;45 DSGVO).</p>
 
-    <h2>8. Betroffenenrechte</h2>
+    <h2>9. Betroffenenrechte</h2>
     <p>Sie haben nach Maßgabe der DSGVO insbesondere folgende Rechte:</p>
     <ul>
       <li>Auskunft (Art.&nbsp;15 DSGVO)</li>
@@ -108,10 +133,10 @@
     <p>Wir setzen keine automatisierte Entscheidungsfindung und kein Profiling im Sinne von Art.&nbsp;22 DSGVO ein.</p>
     <p>Anfragen zur Ausübung Ihrer Rechte richten Sie bitte an die unter Abschnitt&nbsp;1 genannten Kontaktdaten.</p>
 
-    <h2>9. Verzeichnis von Verarbeitungstätigkeiten</h2>
+    <h2>10. Verzeichnis von Verarbeitungstätigkeiten</h2>
     <p>Soweit gesetzlich erforderlich, führen wir gemäß Art.&nbsp;30 DSGVO ein internes Verzeichnis der Verarbeitungstätigkeiten. Dieses Verzeichnis ist nicht öffentlich.</p>
 
-    <h2>10. Änderungen dieser Datenschutzerklärung</h2>
+    <h2>11. Änderungen dieser Datenschutzerklärung</h2>
     <p>Wir passen diese Datenschutzerklärung an, wenn sich unsere Website, eingesetzte Dienste oder rechtliche Vorgaben ändern. Die jeweils aktuelle Fassung ist jederzeit auf dieser Seite abrufbar.</p>
     <p>Stand: September 2026</p>
   </main>
@@ -119,7 +144,7 @@
   <footer class="site-footer">
     <div class="site-footer__inner">
       <div class="site-footer__brand">
-        <span>Lackdesign - OWL</span>
+        <img src="assets/logo.png" alt="Lackdesign OWL" class="site-footer__logo" width="928" height="622" />
         <span class="site-footer__places">Rietberg-Mastholte · Verl · Bünde</span>
       </div>
       <nav class="site-footer__nav" aria-label="Leistungen">
@@ -134,6 +159,7 @@
         <a href="index.html#kontakt">Kontakt</a>
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
+        <button type="button" class="js-cookie-settings">Cookie-Einstellungen</button>
       </nav>
     </div>
     <p class="site-footer__copy">&copy; 2026, Selfdesigned by ITME-Solutions.</p>

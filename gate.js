@@ -17,7 +17,7 @@
   gate.className = 'gate';
   gate.innerHTML = `
     <div class="gate__inner">
-      <p class="gate__brand">Lackdesign - OWL</p>
+      <img src="assets/logo.png" alt="Lackdesign OWL" class="gate__logo" width="928" height="622" />
       <h1 class="gate__title">Zugang</h1>
       <p class="gate__text">Diese Seite ist noch nicht öffentlich. Bitte geben Sie den Zugangscode ein.</p>
       <form class="gate__form" novalidate>

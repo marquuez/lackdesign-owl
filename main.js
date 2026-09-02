@@ -260,10 +260,56 @@
   const heroIsoFrame = document.getElementById('heroIsoFrame');
   const heroSticky = heroIso?.querySelector('.hero');
   const heroActions = heroIso?.querySelector('.hero__actions');
+  const heroLogo = document.getElementById('heroLogo');
+  const headerLogo = document.querySelector('.site-header__logo');
+  const heroTrack = document.getElementById('heroTrack');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function easeSmooth(t) {
     return t * t * (3 - 2 * t);
+  }
+
+  function updateHeroLogo(rise, foldP) {
+    if (!heroLogo) return;
+
+    const riseEased = easeSmooth(rise);
+    const foldEased = easeSmooth(Math.min(foldP / 0.32, 1));
+    const mobile = window.matchMedia('(max-width: 899px)').matches;
+    const logoImg = heroLogo.querySelector('img');
+    const startH = parseFloat(logoImg ? getComputedStyle(logoImg).height : '') || (mobile ? 48 : 64);
+    const targetH = Math.min(
+      window.innerWidth * (mobile ? 0.68 : 0.5),
+      window.innerHeight * (mobile ? 0.3 : 0.36),
+      mobile ? 230 : 400
+    );
+    const scale = 1 + (Math.max(targetH / Math.max(startH, 1), 1) - 1) * riseEased;
+    const startY = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72) / 2;
+    const endY = window.innerHeight * (mobile ? 0.38 : 0.42);
+    const y = startY + (endY - startY) * riseEased;
+    const visible = rise > 0.012 ? 1 : 0;
+    const opacity = visible * (1 - foldEased);
+    const blur = foldEased * 22;
+
+    heroLogo.style.top = `${y}px`;
+    heroLogo.style.transform = `translate3d(-50%, -50%, 0) scale(${scale})`;
+    heroLogo.style.opacity = String(opacity);
+    heroLogo.style.filter = blur > 0.4 ? `blur(${blur}px)` : '';
+
+    if (headerLogo) {
+      const headerOut = Math.min(rise / 0.16, 1);
+      const headerBack = foldP > 0.42
+        ? easeSmooth(Math.min((foldP - 0.42) / 0.38, 1))
+        : 0;
+      const headerOpacity = Math.max(1 - headerOut, headerBack);
+      headerLogo.style.opacity = String(headerOpacity);
+      headerLogo.classList.toggle('is-away', headerOpacity < 0.12);
+    }
+
+    if (heroTrack) {
+      const titleHide = easeSmooth(Math.min(rise * 1.25, 1));
+      heroTrack.style.opacity = String(1 - titleHide);
+      heroTrack.style.filter = titleHide > 0.35 ? `blur(${(titleHide - 0.35) * 14}px)` : '';
+    }
   }
 
   function updateHeroIso() {
@@ -273,6 +319,15 @@
       heroActions?.style.setProperty('--hero-actions-rise', '0px');
       heroActions?.classList.add('is-ready');
       heroActions?.removeAttribute('aria-hidden');
+      if (heroLogo) heroLogo.style.opacity = '0';
+      if (headerLogo) {
+        headerLogo.style.opacity = '';
+        headerLogo.classList.remove('is-away');
+      }
+      if (heroTrack) {
+        heroTrack.style.opacity = '';
+        heroTrack.style.filter = '';
+      }
       return;
     }
 
@@ -299,6 +354,8 @@
     heroActions?.style.setProperty('--hero-actions-rise', `${(1 - easeSmooth(rise)) * startY}px`);
     heroActions?.classList.toggle('is-ready', actionsReady);
     heroActions?.toggleAttribute('aria-hidden', !actionsReady);
+
+    updateHeroLogo(rise, foldP);
 
     const eased = easeSmooth(foldP);
     heroIsoFrame.style.transform = `rotateX(${eased * 92}deg) rotateZ(${eased * -4}deg)`;
@@ -560,6 +617,7 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
 
   /* ─── Promo fly-through ─── */
   const promoFly = document.querySelector('.promo--fly');
