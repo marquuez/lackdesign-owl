@@ -269,6 +269,65 @@
     return t * t * (3 - 2 * t);
   }
 
+  function getHeroLogoStartH() {
+    if (window.matchMedia('(max-width: 399px)').matches) return 42;
+    if (window.matchMedia('(max-width: 899px)').matches) return 48;
+    return 64;
+  }
+
+  function getLogoSourceSize(logoImg) {
+    const attrW = parseInt(logoImg?.getAttribute('width') || '', 10) || 0;
+    const attrH = parseInt(logoImg?.getAttribute('height') || '', 10) || 0;
+    const nw = logoImg?.naturalWidth || 0;
+    const nh = logoImg?.naturalHeight || 0;
+
+    if (attrW > 0 && attrH > 0 && (nw < attrW * 0.85 || nh < attrH * 0.85)) {
+      return { nw: attrW, nh: attrH };
+    }
+    if (nw > 0 && nh > 0) return { nw, nh };
+    return { nw: attrW || 928, nh: attrH || 622 };
+  }
+
+  function getHeroLogoTargetH(logoImg, mobile) {
+    const { nh } = getLogoSourceSize(logoImg);
+    const dpr = Math.min(window.devicePixelRatio || 1, 3);
+    const maxSharpH = nh / dpr;
+    const layoutTarget = Math.min(
+      window.innerWidth * (mobile ? 0.72 : 0.5),
+      window.innerHeight * (mobile ? 0.32 : 0.36),
+      mobile ? 260 : 400
+    );
+    return Math.min(layoutTarget, maxSharpH);
+  }
+
+  function applyHeroLogoSize(logoImg, logoH) {
+    if (!logoImg) return;
+    const { nw, nh } = getLogoSourceSize(logoImg);
+    const logoW = logoH * (nw / nh);
+    logoImg.style.height = `${logoH}px`;
+    logoImg.style.width = `${logoW}px`;
+    logoImg.style.maxWidth = 'none';
+    logoImg.style.maxHeight = 'none';
+  }
+
+  function resetHeroLogoSize(logoImg) {
+    if (!logoImg) return;
+    logoImg.style.removeProperty('height');
+    logoImg.style.removeProperty('width');
+    logoImg.style.removeProperty('max-width');
+    logoImg.style.removeProperty('max-height');
+  }
+
+  const heroLogoImg = heroLogo?.querySelector('img');
+  if (heroLogoImg) {
+    const refreshHeroLogo = () => updateHeroIso();
+    if (heroLogoImg.complete) {
+      refreshHeroLogo();
+    } else {
+      heroLogoImg.addEventListener('load', refreshHeroLogo, { once: true });
+    }
+  }
+
   function updateHeroLogo(rise, foldP) {
     if (!heroLogo) return;
 
@@ -276,12 +335,8 @@
     const foldEased = easeSmooth(Math.min(foldP / 0.32, 1));
     const mobile = window.matchMedia('(max-width: 899px)').matches;
     const logoImg = heroLogo.querySelector('img');
-    const startH = mobile ? 48 : 64;
-    const targetH = Math.min(
-      window.innerWidth * (mobile ? 0.68 : 0.5),
-      window.innerHeight * (mobile ? 0.3 : 0.36),
-      mobile ? 230 : 400
-    );
+    const startH = getHeroLogoStartH();
+    const targetH = getHeroLogoTargetH(logoImg, mobile);
     const logoH = startH + (targetH - startH) * riseEased;
     const startY = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72) / 2;
     const endY = window.innerHeight * (mobile ? 0.38 : 0.42);
@@ -291,7 +346,7 @@
     const blur = foldEased * 22;
 
     if (logoImg) {
-      logoImg.style.height = `${logoH}px`;
+      applyHeroLogoSize(logoImg, logoH);
     }
     heroLogo.style.top = `${y}px`;
     heroLogo.style.transform = 'translate3d(-50%, -50%, 0)';
@@ -324,7 +379,7 @@
       heroActions?.removeAttribute('aria-hidden');
       if (heroLogo) {
         heroLogo.style.opacity = '0';
-        heroLogo.querySelector('img')?.style.removeProperty('height');
+        resetHeroLogoSize(heroLogo.querySelector('img'));
       }
       if (headerLogo) {
         headerLogo.style.opacity = '';

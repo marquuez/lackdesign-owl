@@ -1,7 +1,12 @@
-/* ─── Design tokens (Ferrari-inspired) ─── */
+/* ─── Design tokens (Lackdesign brand) ─── */
 :root {
-  --red: #da291c;
-  --red-dark: #b01e14;
+  --gold: #c8a24e;
+  --gold-light: #e4cc82;
+  --gold-dark: #9a7832;
+  --gold-muted: rgba(200, 162, 78, 0.42);
+  --gold-glow: rgba(200, 162, 78, 0.14);
+  --error: #c44536;
+
   --black: #181818;
   --ink: #111111;
   --white: #ffffff;
@@ -130,7 +135,7 @@ html.skip-intro .page-nav {
   height: 2px;
   background: repeating-linear-gradient(
     to right,
-    #fff 0 11px,
+    var(--gold) 0 11px,
     transparent 11px 20px
   );
   animation: introDash 0.45s linear infinite;
@@ -141,7 +146,8 @@ html.skip-intro .page-nav {
   left: 0;
   bottom: 10px;
   width: 96px;
-  color: #fff;
+  color: var(--gold-light);
+  filter: drop-shadow(0 0 10px rgba(200, 162, 78, 0.35));
   animation: introDrive 2.2s cubic-bezier(0.4, 0.08, 0.2, 1) forwards;
 }
 
@@ -160,7 +166,7 @@ html.skip-intro .page-nav {
   width: 100%;
   height: 20px;
   margin-top: 0.85rem;
-  border: 2px solid #fff;
+  border: 2px solid rgba(200, 162, 78, 0.55);
   border-radius: 3px;
   padding: 3px;
   overflow: hidden;
@@ -169,18 +175,14 @@ html.skip-intro .page-nav {
 .intro__bar-fill {
   height: 100%;
   width: 0;
-  background: repeating-linear-gradient(
-    to right,
-    #fff 0 4px,
-    transparent 4px 7px
-  );
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
   animation: introBarFill 2.2s cubic-bezier(0.4, 0.08, 0.2, 1) forwards;
 }
 
 .intro__logo {
-  margin-top: 1.15rem;
   width: min(220px, 68vw);
   height: auto;
+  margin-bottom: 1.25rem;
   opacity: 0;
   animation: introIn 0.6s var(--ease-out) 0.15s forwards;
 }
@@ -231,6 +233,7 @@ html.skip-intro .page-nav {
 .site-header.is-scrolled {
   background: rgba(24, 24, 24, 0.92);
   backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(200, 162, 78, 0.18);
 }
 
 .site-header__menu {
@@ -264,6 +267,15 @@ html.skip-intro .page-nav {
   width: 22px;
   height: 1.5px;
   background: var(--white);
+  transition: background 0.3s var(--ease-out);
+}
+
+.site-header__menu-lines span:nth-child(2) {
+  background: var(--gold);
+}
+
+.site-header__menu.is-open .site-header__menu-lines span:nth-child(2) {
+  background: var(--gold-light);
 }
 
 .site-header__menu-close {
@@ -274,7 +286,14 @@ html.skip-intro .page-nav {
   justify-content: center;
   opacity: 0;
   transform: rotate(-90deg) scale(0.6);
-  transition: opacity 0.25s, transform 0.3s var(--ease-out);
+  transition: opacity 0.25s, transform 0.3s var(--ease-out), color 0.25s;
+  color: var(--white);
+}
+
+.site-header__menu.is-open .site-header__menu-close {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+  color: var(--gold-light);
 }
 
 .site-header__menu-close svg {
@@ -287,17 +306,17 @@ html.skip-intro .page-nav {
   transform: scale(0.6);
 }
 
-.site-header__menu.is-open .site-header__menu-close {
-  opacity: 1;
-  transform: rotate(0) scale(1);
-}
-
 .site-header__menu-label {
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   display: none;
+  transition: color 0.3s;
+}
+
+.site-header__menu:hover .site-header__menu-label {
+  color: var(--gold-light);
 }
 
 @media (min-width: 700px) {
@@ -338,18 +357,19 @@ html.skip-intro .page-nav {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   opacity: 0.85;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s, color 0.3s;
 }
 
 .site-header__cta:hover {
   opacity: 1;
+  color: var(--gold-light);
 }
 
 body.menu-open .site-header {
   background: transparent;
 }
 
-/* ─── Ferrari mega menu ─── */
+/* ─── Mega menu ─── */
 .mega-menu {
   position: fixed;
   inset: 0;
@@ -359,6 +379,7 @@ body.menu-open .site-header {
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.45s var(--ease-out), visibility 0.45s;
+  border-top: 1px solid rgba(200, 162, 78, 0.12);
 }
 
 .mega-menu.is-open {
@@ -422,7 +443,15 @@ body.menu-open .site-header {
 }
 
 .mega-nav__trigger:hover {
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--gold-light);
+}
+
+.mega-nav__item.is-open .mega-nav__trigger {
+  color: var(--gold-light);
+}
+
+.mega-nav__item.is-open {
+  border-bottom-color: rgba(200, 162, 78, 0.28);
 }
 
 .mega-nav__chevron {
@@ -430,11 +459,13 @@ body.menu-open .site-header {
   height: 22px;
   flex-shrink: 0;
   opacity: 0.7;
-  transition: transform 0.35s var(--ease-out);
+  transition: transform 0.35s var(--ease-out), color 0.3s;
 }
 
 .mega-nav__item.is-open .mega-nav__chevron {
   transform: rotate(180deg);
+  color: var(--gold);
+  opacity: 1;
 }
 
 .mega-nav__links {
@@ -483,7 +514,7 @@ body.menu-open .site-header {
 
 .mega-nav__links a:hover,
 .mega-nav__links a.is-active {
-  color: var(--white);
+  color: var(--gold-light);
 }
 
 .mega-menu__utils {
@@ -504,7 +535,7 @@ body.menu-open .site-header {
 }
 
 .mega-menu__utils a:hover {
-  color: var(--white);
+  color: var(--gold-light);
 }
 
 .mega-menu__stage {
@@ -581,7 +612,7 @@ body.menu-open .site-header {
   letter-spacing: 0.22em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
-  opacity: 0.8;
+  color: var(--gold-light);
 }
 
 .mega-stage__title {
@@ -604,7 +635,7 @@ body.menu-open .site-header {
   opacity: 1;
 }
 
-/* ─── Discover CTA (Ferrari circular arrow) ─── */
+/* ─── Discover CTA ─── */
 .discover {
   display: inline-flex;
   align-items: center;
@@ -638,8 +669,8 @@ body.menu-open .site-header {
 }
 
 .discover:hover .discover__btn {
-  background: var(--red);
-  border-color: var(--red);
+  background: var(--gold);
+  border-color: var(--gold);
   color: var(--white);
   transform: scale(1.06);
 }
@@ -760,6 +791,7 @@ body.menu-open .site-header {
   letter-spacing: 0.28em;
   text-transform: uppercase;
   margin-bottom: 1.25rem;
+  color: var(--gold-light);
   opacity: 0;
   transform: translateY(16px);
 }
@@ -776,6 +808,7 @@ body.menu-open .site-header {
 }
 
 .hero__logo {
+  --hero-logo-start: 64px;
   position: absolute;
   left: 50%;
   top: calc(var(--header-h) / 2);
@@ -791,10 +824,12 @@ body.menu-open .site-header {
 
 .hero__logo img {
   display: block;
-  height: 64px;
+  height: var(--hero-logo-start);
   width: auto;
-  max-width: min(92vw, 640px);
+  max-width: none;
   filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.45));
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .hero__actions {
@@ -871,8 +906,8 @@ body.menu-open .site-header {
 
 .hero__dot.is-active {
   background: transparent;
-  border-color: var(--red);
-  box-shadow: inset 0 0 0 2px var(--red);
+  border-color: var(--gold);
+  box-shadow: inset 0 0 0 2px var(--gold);
   transform: scale(1.15);
 }
 
@@ -945,8 +980,10 @@ body.intro-active .page-nav {
 }
 
 .page-nav__btn:hover:not(:disabled) {
-  border-color: var(--red);
-  background: rgba(218, 41, 28, 0.92);
+  border-color: var(--gold);
+  background: rgba(24, 24, 24, 0.88);
+  color: var(--gold-light);
+  box-shadow: inset 3px 0 0 var(--gold);
 }
 
 .page-nav__btn:disabled {
@@ -955,8 +992,8 @@ body.intro-active .page-nav {
 }
 
 .hero__pause:hover {
-  border-color: var(--white);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--gold);
+  background: var(--gold-glow);
 }
 
 .hero__pause svg {
@@ -1054,7 +1091,7 @@ body.intro-active .page-nav {
   width: 0.85rem;
   height: 0.85rem;
   flex: none;
-  color: var(--red);
+  color: var(--gold);
 }
 
 .place--details {
@@ -1135,6 +1172,15 @@ body.intro-active .page-nav {
   margin-bottom: clamp(2rem, 5vw, 3.25rem);
 }
 
+.service-details__title::after {
+  content: '';
+  display: block;
+  width: 3.25rem;
+  height: 1px;
+  margin-top: 1.1rem;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
 .service-details__grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -1179,7 +1225,7 @@ body.intro-active .page-nav {
   top: 0.95rem;
   width: 6px;
   height: 1.5px;
-  background: var(--red);
+  background: var(--gold);
 }
 
 .service-details__actions {
@@ -1217,14 +1263,14 @@ body.intro-active .page-nav {
 }
 
 .service-details__btn:hover {
-  background: var(--red);
-  border-color: var(--red);
+  background: var(--gold);
+  border-color: var(--gold);
 }
 
 .service-details__btn:hover .discover__btn {
   background: var(--white);
   border-color: var(--white);
-  color: var(--red);
+  color: var(--gold);
   transform: scale(1.06);
 }
 
@@ -1297,7 +1343,7 @@ body.intro-active .page-nav {
   position: absolute;
   width: 2.5rem;
   height: 2px;
-  background: var(--red);
+  background: var(--gold);
   bottom: calc(50% - 1.55rem);
 }
 
@@ -1424,7 +1470,7 @@ body.intro-active .page-nav {
   top: 0.75rem;
   width: 7px;
   height: 1.5px;
-  background: var(--red);
+  background: var(--gold);
 }
 
 .promo__veil {
@@ -1474,7 +1520,7 @@ body.intro-active .page-nav {
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--red);
+  color: var(--gold);
   margin-bottom: 0.75rem;
 }
 
@@ -1487,6 +1533,15 @@ body.intro-active .page-nav {
   margin-bottom: 1.75rem;
 }
 
+.contact__title::after {
+  content: '';
+  display: block;
+  width: 3.25rem;
+  height: 1px;
+  margin-top: 1rem;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
 .contact__direct {
   display: flex;
   flex-direction: column;
@@ -1495,7 +1550,7 @@ body.intro-active .page-nav {
 }
 
 .contact__direct a {
-  color: var(--red);
+  color: var(--gold);
   font-weight: 600;
 }
 
@@ -1549,7 +1604,7 @@ body.intro-active .page-nav {
 }
 
 .form-status.is-ok { color: #1a7a3a; }
-.form-status.is-err { color: var(--red); }
+.form-status.is-err { color: var(--error); }
 
 .call-dock {
   display: none;
@@ -1561,7 +1616,7 @@ body.intro-active .page-nav {
   align-items: center;
   justify-content: center;
   height: 48px;
-  background: var(--red);
+  background: var(--gold);
   color: var(--white);
   font-size: 0.75rem;
   font-weight: 700;
@@ -1591,7 +1646,7 @@ body.intro-active .page-nav {
 }
 
 .contact__info a:hover {
-  border-bottom-color: var(--red);
+  border-bottom-color: var(--gold);
 }
 
 .contact__places,
@@ -1688,8 +1743,8 @@ body.intro-active .page-nav {
 .form-row select:focus,
 .form-row textarea:focus {
   outline: none;
-  border-color: var(--red);
-  box-shadow: inset 0 0 0 1px var(--red);
+  border-color: var(--gold);
+  box-shadow: inset 0 0 0 1px var(--gold);
 }
 
 .form-row textarea {
@@ -1725,20 +1780,20 @@ body.intro-active .page-nav {
 }
 
 .btn-submit:hover {
-  background: var(--red);
+  background: var(--gold);
 }
 
 .btn-submit:hover .discover__btn {
   background: var(--white);
   border-color: var(--white);
-  color: var(--red);
+  color: var(--gold);
 }
 
 /* ─── Footer ─── */
 .site-footer {
   background: var(--ink);
   padding: 2.75rem clamp(1.25rem, 5vw, 4rem);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(200, 162, 78, 0.14);
 }
 
 .site-footer__inner {
@@ -1769,14 +1824,6 @@ body.intro-active .page-nav {
   display: block;
   height: 72px;
   width: auto;
-}
-
-.site-footer__places {
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  opacity: 0.55;
 }
 
 .site-footer__nav,
@@ -1827,6 +1874,7 @@ body.intro-active .page-nav {
 .site-footer__legal a:hover,
 .site-footer__legal button:hover {
   opacity: 1;
+  color: var(--gold-light);
 }
 
 .site-footer__copy {
@@ -1868,8 +1916,11 @@ body.intro-active .page-nav {
     padding: 0.4rem 0.25rem;
   }
 
-  .site-header__logo-img,
-  .hero__logo img {
+  .hero__logo {
+    --hero-logo-start: 48px;
+  }
+
+  .site-header__logo-img {
     height: 48px;
   }
 
@@ -2126,8 +2177,11 @@ body.intro-active .page-nav {
 }
 
 @media (max-width: 399px) {
-  .site-header__logo-img,
-  .hero__logo img {
+  .hero__logo {
+    --hero-logo-start: 42px;
+  }
+
+  .site-header__logo-img {
     height: 42px;
   }
 }
@@ -2227,9 +2281,9 @@ body.intro-active .page-nav {
   justify-content: center;
   width: 42px;
   height: 42px;
-  border: 1px solid var(--red);
+  border: 1px solid var(--gold);
   border-radius: 50%;
-  color: var(--red);
+  color: var(--gold);
   transition: background 0.35s var(--ease-out), color 0.35s, border-color 0.35s, transform 0.35s var(--ease-out);
 }
 
@@ -2240,7 +2294,7 @@ body.intro-active .page-nav {
 }
 
 .legal-back:hover .legal-back__icon {
-  background: var(--red);
+  background: var(--gold);
   color: var(--white);
   transform: scale(1.06);
 }
@@ -2261,7 +2315,7 @@ body.intro-active .page-nav {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--red);
+  color: var(--gold);
   margin-bottom: 0.75rem;
 }
 
@@ -2404,8 +2458,8 @@ body.intro-active .page-nav {
 }
 
 .cookie-banner__accent {
-  height: 3px;
-  background: linear-gradient(90deg, var(--red), #ff6a3d, var(--red));
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-dark), var(--gold-light), var(--gold-dark), transparent);
 }
 
 .cookie-banner__inner {
@@ -2512,8 +2566,8 @@ body.intro-active .page-nav {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--red);
-  border: 1px solid rgba(218, 41, 28, 0.45);
+  color: var(--gold-light);
+  border: 1px solid var(--gold-muted);
   border-radius: 999px;
   padding: 0.15rem 0.45rem;
 }
@@ -2566,7 +2620,7 @@ body.intro-active .page-nav {
 }
 
 .cookie-switch input:checked + .cookie-switch__ui {
-  background: var(--red);
+  background: var(--gold);
 }
 
 .cookie-switch input:checked + .cookie-switch__ui::after {
@@ -2606,13 +2660,13 @@ body.intro-active .page-nav {
 }
 
 .cookie-banner__btn--solid {
-  border: 1px solid var(--red);
-  background: var(--red);
+  border: 1px solid var(--gold);
+  background: var(--gold);
   color: var(--white);
 }
 
 .cookie-banner__btn--solid:hover {
-  background: var(--red-dark);
+  background: var(--gold-dark);
 }
 
 .cookie-banner__btn:active {
@@ -2721,13 +2775,13 @@ html.is-locked body > *:not(.gate):not(noscript):not(.cookie-banner):not(.cookie
 
 .gate__input:focus {
   outline: none;
-  border-color: var(--red);
+  border-color: var(--gold);
 }
 
 .gate__submit {
   padding: 0.85rem 1.4rem;
-  border: 1px solid var(--red);
-  background: var(--red);
+  border: 1px solid var(--gold);
+  background: var(--gold);
   color: var(--white);
   font-family: inherit;
   font-size: 0.75rem;
@@ -2740,13 +2794,13 @@ html.is-locked body > *:not(.gate):not(noscript):not(.cookie-banner):not(.cookie
 
 .gate__submit:hover {
   background: transparent;
-  color: var(--red);
+  color: var(--gold);
 }
 
 .gate__error {
   margin-top: 0.9rem;
   font-size: 0.8rem;
-  color: var(--red);
+  color: var(--error);
 }
 
 .gate__legal {
