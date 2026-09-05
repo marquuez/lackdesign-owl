@@ -646,7 +646,7 @@
       if (contactStatus) {
         contactStatus.hidden = false;
         contactStatus.className = 'form-status is-ok';
-        contactStatus.textContent = 'Danke. Wir haben Ihre Anfrage erhalten und senden Ihnen eine Bestätigung per E-Mail.';
+        contactStatus.textContent = 'Danke. Wir haben Ihre Anfrage erhalten und melden uns innerhalb von 24 Stunden. Eine Bestätigung geht an Ihre E-Mail-Adresse.';
       }
       setTimeout(() => {
         if (btn && original) btn.textContent = original;

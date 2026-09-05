@@ -1,12 +1,32 @@
 import nodemailer from 'nodemailer'
 
-function env(name) {
-  return process.env[name]?.trim() || ''
+const DEFAULTS = {
+  SMTP_HOST: 'smtp.strato.de',
+  SMTP_PORT: '465',
+  SMTP_USER: 'webmaster@lackdesign-owl.de',
+  MAIL_FROM: 'Lackdesign <webmaster@lackdesign-owl.de>',
+  MAIL_TO: 'info@lackdesign-owl.de',
+}
+
+function env(name, fallback = '') {
+  return process.env[name]?.trim() || fallback
+}
+
+function smtpUser() {
+  return env('SMTP_USER', DEFAULTS.SMTP_USER)
+}
+
+function mailFrom() {
+  return env('MAIL_FROM', DEFAULTS.MAIL_FROM)
+}
+
+function mailTo() {
+  return env('MAIL_TO', DEFAULTS.MAIL_TO)
 }
 
 export function getPublicContact() {
   const phone = env('LACKDESIGN_PHONE')
-  const email = env('LACKDESIGN_MAIL') || env('MAIL_FROM') || env('SMTP_USER')
+  const email = env('LACKDESIGN_MAIL') || mailTo()
   const tel = phone.replace(/[^\d+]/g, '')
   return {
     phone,
@@ -17,19 +37,21 @@ export function getPublicContact() {
 }
 
 export function isMailConfigured() {
-  return Boolean(env('SMTP_HOST') && env('SMTP_USER') && env('SMTP_PASS') && (env('MAIL_TO') || env('SMTP_USER')))
+  return Boolean(env('SMTP_PASS') && smtpUser() && mailTo())
 }
 
 export function createMailer() {
   if (!isMailConfigured()) return null
-  const port = Number(env('SMTP_PORT') || '465')
-  const secure = env('SMTP_SECURE') ? env('SMTP_SECURE') === '1' || env('SMTP_SECURE') === 'true' : port === 465
+  const port = Number(env('SMTP_PORT', DEFAULTS.SMTP_PORT))
+  const secure = env('SMTP_SECURE')
+    ? env('SMTP_SECURE') === '1' || env('SMTP_SECURE') === 'true'
+    : port === 465
   return nodemailer.createTransport({
-    host: env('SMTP_HOST') || 'smtp.strato.de',
+    host: env('SMTP_HOST', DEFAULTS.SMTP_HOST),
     port,
     secure,
     auth: {
-      user: env('SMTP_USER'),
+      user: smtpUser(),
       pass: env('SMTP_PASS'),
     },
   })
@@ -46,7 +68,21 @@ export function serviceLabel(value) {
   return SERVICE_LABELS[value] || value || 'Allgemeine Beratung'
 }
 
-export async function sendContactMails({ name, email, phone, service, message }) {
+export function formatConsentStamp(date = new Date()) {
+  const formatted = new Intl.DateTimeFormat('de-DE', {
+    timeZone: 'Europe/Berlin',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }).format(date)
+  return `${formatted} Uhr (Europe/Berlin)`
+}
+
+export async function sendContactMails({ name, email, phone, service, message, privacyAcceptedAt }) {
   const transport = createMailer()
   if (!transport) {
     const err = new Error('Mail ist nicht konfiguriert.')
@@ -54,10 +90,11 @@ export async function sendContactMails({ name, email, phone, service, message })
     throw err
   }
 
-  const inbox = env('MAIL_TO') || env('SMTP_USER')
-  const from = env('MAIL_FROM') || env('SMTP_USER')
+  const inbox = mailTo()
+  const from = mailFrom()
   const topic = serviceLabel(service)
-  const phoneLine = phone ? phone : 'nicht angegeben'
+  const phoneLine = phone || 'nicht angegeben'
+  const consentAt = privacyAcceptedAt || formatConsentStamp()
 
   await transport.sendMail({
     from,
@@ -74,30 +111,39 @@ export async function sendContactMails({ name, email, phone, service, message })
       '',
       'Nachricht:',
       message,
+      '',
+      'Datenschutz-Einwilligung:',
+      'Der Absender hat die Datenschutzerklärung bestätigt.',
+      `Zeitpunkt: ${consentAt}`,
     ].join('\n'),
   })
 
   await transport.sendMail({
     from,
     to: email,
-    subject: 'Ihre Anfrage bei Lackdesign',
+    replyTo: inbox,
+    subject: 'Ihre Anfrage bei Lackdesign – wir haben Ihre Nachricht erhalten',
     text: [
       `Guten Tag ${name},`,
       '',
-      'vielen Dank für Ihre Anfrage bei Lackdesign. Wir haben Ihre Nachricht erhalten und melden uns in der Regel innerhalb unserer Öffnungszeiten.',
+      'vielen Dank für Ihre Anfrage bei Lackdesign.',
+      'Wir haben Ihre Nachricht erhalten und melden uns innerhalb von 24 Stunden bei Ihnen.',
       '',
       'Ihre Angaben:',
       `Leistung: ${topic}`,
-      phone ? `Telefon: ${phone}` : null,
+      `Telefon: ${phoneLine}`,
       '',
-      'Nachricht:',
+      'Ihre Nachricht:',
       message,
       '',
-      'Lackdesign',
+      'Bei Rückfragen erreichen Sie uns unter:',
+      'Telefon: +49 160 90222734',
+      'E-Mail: info@lackdesign-owl.de',
+      '',
+      'Mit freundlichen Grüßen',
+      'Ihr Team von Lackdesign',
       'Christof Lempa',
       'Siemensstraße 18, 33397 Rietberg',
-    ]
-      .filter(Boolean)
-      .join('\n'),
+    ].join('\n'),
   })
 }

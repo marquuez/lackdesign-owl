@@ -1,4 +1,4 @@
-import { getPublicContact, isMailConfigured, sendContactMails } from './mail.js'
+import { formatConsentStamp, getPublicContact, isMailConfigured, sendContactMails } from './mail.js'
 
 function sanitize(value, maxLen) {
   if (typeof value !== 'string') return ''
@@ -55,8 +55,9 @@ export function mountContactApi(app) {
         return res.status(400).json({ error: 'Bitte die Datenschutzerklärung akzeptieren.' })
       }
 
-      await sendContactMails({ name, email, phone, service, message })
-      res.json({ ok: true })
+      const privacyAcceptedAt = formatConsentStamp()
+      await sendContactMails({ name, email, phone, service, message, privacyAcceptedAt })
+      res.json({ ok: true, privacyAcceptedAt })
     } catch (err) {
       if (err.code === 'MAIL_NOT_CONFIGURED') {
         return res.status(503).json({
