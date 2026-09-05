@@ -401,7 +401,7 @@
 
     let rise = 1;
     let foldP = 0;
-    const riseTravel = Math.min(window.innerHeight * 0.48, actionTravel * 0.36);
+    const riseTravel = Math.min(window.innerHeight * 0.48, actionTravel * 0.82);
     if (scrolled <= riseTravel) {
       rise = scrolled / Math.max(riseTravel, 1);
     } else if (scrolled <= actionTravel) {
@@ -529,11 +529,8 @@
     if (site?.phoneHref) {
       document.querySelectorAll('.js-call').forEach((el) => {
         el.href = site.phoneHref;
-        if (el.classList.contains('contact__direct') || el.closest('.contact__direct')) {
-          el.textContent = site.phone;
-        }
       });
-      document.querySelectorAll('.contact__direct .js-call').forEach((el) => {
+      document.querySelectorAll('.js-phone-label, .contact__direct .js-call').forEach((el) => {
         el.textContent = site.phone;
       });
       if (callDock) {
@@ -567,9 +564,13 @@
   fetch('/api/site')
     .then((res) => (res.ok ? res.json() : null))
     .then((site) => {
-      if (!site?.phoneHref && !site?.mailHref) return;
-      publicContact = site;
-      applyPublicContact(site);
+      if (!site) return;
+      publicContact = normalizeContact({
+        phone: site.phone || publicContact.phone,
+        email: site.email || publicContact.email,
+      });
+      if (!publicContact.phoneHref && !publicContact.mailHref) return;
+      applyPublicContact(publicContact);
     })
     .catch(() => {});
 
@@ -779,6 +780,47 @@
   });
 
   /* ─── Init ─── */
+  function initQuoteSpray() {
+    const band = document.getElementById('quoteBand');
+    const gun = band?.querySelector('.quote-band__gun');
+    if (!band) return;
+
+    if (reduceMotion) {
+      band.classList.add('is-done');
+      return;
+    }
+
+    const finish = () => {
+      band.classList.remove('is-playing');
+      band.classList.add('is-done');
+    };
+
+    const play = () => {
+      if (band.classList.contains('is-playing') || band.classList.contains('is-done')) return;
+      band.classList.add('is-playing');
+      const done = () => {
+        gun?.removeEventListener('animationend', onEnd);
+        finish();
+      };
+      const onEnd = (event) => {
+        if (event.target === gun && event.animationName === 'quoteGun') done();
+      };
+      gun?.addEventListener('animationend', onEnd);
+      window.setTimeout(done, 7000);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.32)) {
+          play();
+          observer.disconnect();
+        }
+      },
+      { threshold: [0.32, 0.48] }
+    );
+    observer.observe(band);
+  }
+
   function boot() {
     initHeroVideo();
     initRevealObserver();
@@ -787,6 +829,7 @@
     updatePageNav();
     updateHeroIso();
     updatePromoFly();
+    initQuoteSpray();
     syncPromoFromHash();
   }
 

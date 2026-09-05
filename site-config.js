@@ -6,8 +6,8 @@
  * Laeuft die Seite auf dem Node-Server, haben die Angaben aus der .env Vorrang.
  */
 window.LACKDESIGN_SITE = {
-  phone: '',
-  email: '',
+  phone: '+49 160 90222734',
+  email: 'info@lackdesign-owl.de',
   /*
    * Google Analytics 4 Mess-ID, z. B. 'G-XXXXXXXXXX'.
    * Leer = kein Tracking. Nach dem Eintrag: Cookie-Banner

@@ -39,12 +39,39 @@
     });
   });
 
+  function applyLegalContact(site) {
+    const phone = String(site?.phone || '').trim();
+    const email = String(site?.email || '').trim();
+    const phoneHref = site?.phoneHref || (phone ? `tel:${phone.replace(/[^\d+]/g, '')}` : '');
+    const mailHref = site?.mailHref || (email ? `mailto:${email}` : '');
+
+    if (phoneHref) {
+      document.querySelectorAll('.js-call').forEach((el) => {
+        el.href = phoneHref;
+      });
+      document.querySelectorAll('.js-phone-label').forEach((el) => {
+        el.textContent = phone;
+      });
+    }
+    if (mailHref) {
+      document.querySelectorAll('.js-mail').forEach((el) => {
+        el.href = mailHref;
+        el.textContent = email;
+      });
+    }
+  }
+
+  applyLegalContact(window.LACKDESIGN_SITE);
+
   fetch('/api/site')
     .then((res) => (res.ok ? res.json() : null))
     .then((site) => {
-      if (!site?.phoneHref) return;
-      document.querySelectorAll('.js-call').forEach((el) => {
-        el.href = site.phoneHref;
+      if (!site) return;
+      applyLegalContact({
+        phone: site.phone || window.LACKDESIGN_SITE?.phone,
+        email: site.email || window.LACKDESIGN_SITE?.email,
+        phoneHref: site.phoneHref,
+        mailHref: site.mailHref,
       });
     })
     .catch(() => {});

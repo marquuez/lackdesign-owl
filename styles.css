@@ -179,18 +179,6 @@ html.skip-intro .page-nav {
   animation: introBarFill 2.2s cubic-bezier(0.4, 0.08, 0.2, 1) forwards;
 }
 
-.intro__logo {
-  width: min(220px, 68vw);
-  height: auto;
-  margin-bottom: 1.25rem;
-  opacity: 0;
-  animation: introIn 0.6s var(--ease-out) 0.15s forwards;
-}
-
-@keyframes introIn {
-  to { opacity: 1; }
-}
-
 @keyframes introBarFill {
   to { width: 100%; }
 }
@@ -690,7 +678,7 @@ body.menu-open .site-header {
 
 /* ─── Hero carousel ─── */
 .hero-iso {
-  --hero-actions-travel: 140vh;
+  --hero-actions-travel: 58vh;
   position: relative;
   z-index: 1;
   height: calc(200vh + var(--hero-actions-travel));
@@ -889,9 +877,7 @@ body.menu-open .site-header {
 }
 
 .hero__dots {
-  display: flex;
-  gap: 0.65rem;
-  align-items: center;
+  display: none;
 }
 
 .hero__dot {
@@ -1789,6 +1775,398 @@ body.intro-active .page-nav {
   color: var(--gold);
 }
 
+/* ─── Quote design band ─── */
+.quote-band {
+  --quote-dur: 6.8s;
+  --gun-x1: -4vw;
+  --gun-y1: -4.6rem;
+  --gun-x2: -46vw;
+  --gun-y2: -5rem;
+  --gun-x3: -44vw;
+  --gun-y3: -0.4rem;
+  --gun-x4: -6vw;
+  --gun-y4: 0.6rem;
+  --gun-x5: -8vw;
+  --gun-y5: 4.4rem;
+  --gun-x6: -46vw;
+  --gun-y6: 4.8rem;
+  --gun-s: 1.08;
+  width: 100%;
+  min-height: clamp(32rem, 72vh, 56rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--gold);
+  padding: clamp(7rem, 16vw, 12rem) clamp(1.5rem, 8vw, 6rem);
+  perspective: 1600px;
+  perspective-origin: 52% 42%;
+}
+
+.quote-band__stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.25rem, 4vw, 3.25rem);
+  width: min(1180px, 100%);
+  transform-style: preserve-3d;
+}
+
+.quote-band__figure {
+  margin: 0;
+  max-width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.quote-band__text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.12em;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 3.5vw, 3.15rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--gold);
+  filter: drop-shadow(0 0 18px rgba(200, 162, 78, 0.18));
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+}
+
+.quote-band.is-playing .quote-band__text,
+.quote-band.is-done .quote-band__text {
+  animation: quotePaint 4.4s cubic-bezier(0.22, 0.55, 0.28, 1) 0.85s forwards;
+}
+
+.quote-band.is-done .quote-band__text {
+  animation: none;
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+}
+
+.quote-band__line {
+  display: block;
+  white-space: nowrap;
+}
+
+.quote-band__mark {
+  display: inline;
+  color: var(--gold-light);
+  font-size: 1.05em;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.02em;
+}
+
+.quote-band__line:first-child .quote-band__mark {
+  margin-right: 0.12em;
+}
+
+.quote-band__line:last-child .quote-band__mark {
+  margin-left: 0.12em;
+}
+
+.quote-band__gun-slot {
+  position: relative;
+  flex: none;
+  width: clamp(9rem, 20vw, 14rem);
+  height: clamp(13rem, 28vw, 20rem);
+  transform-style: preserve-3d;
+}
+
+.quote-band__gun-slot::after {
+  content: '';
+  position: absolute;
+  left: 12%;
+  right: 8%;
+  bottom: 8%;
+  height: 18%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(200, 162, 78, 0.22), transparent 70%);
+  filter: blur(8px);
+  opacity: 0;
+  transform: rotateX(70deg);
+}
+
+.quote-band.is-playing .quote-band__gun-slot::after,
+.quote-band.is-done .quote-band__gun-slot::after {
+  animation: quoteShadow 0.9s ease 5.4s forwards;
+}
+
+.quote-band.is-done .quote-band__gun-slot::after {
+  animation: none;
+  opacity: 1;
+}
+
+.quote-band__gun {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+  transform-origin: 42% 62%;
+  opacity: 0;
+  will-change: transform;
+}
+
+.quote-band.is-playing .quote-band__gun {
+  animation: quoteGun var(--quote-dur) linear forwards;
+}
+
+.quote-band.is-done .quote-band__gun {
+  opacity: 1;
+  animation: quoteGunIdle 6s ease-in-out infinite;
+}
+
+.quote-band__gun img {
+  display: block;
+  width: auto;
+  height: clamp(12rem, 26vw, 18rem);
+  filter: drop-shadow(14px 26px 22px rgba(0, 0, 0, 0.55));
+  transform: rotateY(-8deg);
+}
+
+.quote-band__cone,
+.quote-band__mist {
+  position: absolute;
+  left: 10%;
+  top: 36%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.quote-band__cone {
+  width: clamp(7rem, 16vw, 12rem);
+  height: 4.8rem;
+  transform: translate(-96%, -50%);
+  background: radial-gradient(ellipse at 100% 50%, rgba(228, 204, 130, 0.82) 0%, rgba(200, 162, 78, 0.28) 42%, transparent 74%);
+  filter: blur(7px);
+}
+
+.quote-band__mist {
+  width: clamp(9rem, 20vw, 15rem);
+  height: 7rem;
+  transform: translate(-108%, -52%);
+  background: radial-gradient(ellipse at 88% 50%, rgba(255, 236, 170, 0.45), transparent 68%);
+  filter: blur(16px);
+}
+
+.quote-band.is-playing .quote-band__cone {
+  animation: quoteCone 4.35s ease 0.75s;
+}
+
+.quote-band.is-playing .quote-band__mist {
+  animation: quoteMist 4.35s ease 0.75s;
+}
+
+.quote-band__particles {
+  position: absolute;
+  left: 8%;
+  top: 36%;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.quote-band.is-playing .quote-band__particles {
+  animation: quoteParticlesWindow 4.35s linear 0.72s;
+}
+
+.quote-band__particles i {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold-light);
+  box-shadow: 0 0 10px rgba(228, 204, 130, 0.9);
+  opacity: 0;
+}
+
+.quote-band.is-playing .quote-band__particles i {
+  animation: quoteDot 0.7s ease-out infinite;
+}
+
+.quote-band.is-playing .quote-band__particles i:nth-child(1) { --dx: -68px; --dy: -10px; animation-delay: 0.66s; }
+.quote-band.is-playing .quote-band__particles i:nth-child(2) { --dx: -92px; --dy: 8px; animation-delay: 0.78s; }
+.quote-band.is-playing .quote-band__particles i:nth-child(3) { --dx: -54px; --dy: 16px; animation-delay: 0.9s; }
+.quote-band.is-playing .quote-band__particles i:nth-child(4) { --dx: -110px; --dy: -4px; animation-delay: 1.02s; }
+.quote-band.is-playing .quote-band__particles i:nth-child(5) { --dx: -78px; --dy: 22px; animation-delay: 1.14s; }
+.quote-band.is-playing .quote-band__particles i:nth-child(6) { --dx: -124px; --dy: 12px; animation-delay: 1.26s; }
+.quote-band.is-playing .quote-band__particles i:nth-child(7) { --dx: -86px; --dy: -18px; animation-delay: 1.4s; }
+.quote-band.is-playing .quote-band__particles i:nth-child(8) { --dx: -102px; --dy: 4px; animation-delay: 1.54s; }
+
+@keyframes quoteGun {
+  0% {
+    opacity: 0;
+    transform: translate3d(70vw, -2rem, 220px) rotateY(42deg) rotateX(8deg) rotateZ(-4deg) scale(0.92);
+  }
+  8% {
+    opacity: 1;
+    transform: translate3d(var(--gun-x1), var(--gun-y1), 80px) rotateY(18deg) rotateX(7deg) rotateZ(-6deg) scale(var(--gun-s));
+  }
+  28% {
+    transform: translate3d(var(--gun-x2), var(--gun-y2), 42px) rotateY(8deg) rotateX(6deg) rotateZ(-3deg) scale(var(--gun-s));
+  }
+  40% {
+    transform: translate3d(var(--gun-x3), var(--gun-y3), 36px) rotateY(12deg) rotateX(6deg) rotateZ(5deg) scale(var(--gun-s));
+  }
+  54% {
+    transform: translate3d(var(--gun-x4), var(--gun-y4), 48px) rotateY(18deg) rotateX(7deg) rotateZ(3deg) scale(var(--gun-s));
+  }
+  68% {
+    transform: translate3d(var(--gun-x5), var(--gun-y5), 38px) rotateY(12deg) rotateX(6deg) rotateZ(-3deg) scale(var(--gun-s));
+  }
+  86% {
+    transform: translate3d(var(--gun-x6), var(--gun-y6), 32px) rotateY(7deg) rotateX(5deg) rotateZ(-5deg) scale(var(--gun-s));
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 2%, 48px) rotateY(-28deg) rotateX(8deg) rotateZ(-2deg) scale(1);
+  }
+}
+
+@keyframes quoteGunIdle {
+  0%, 100% {
+    transform: translate3d(0, 2%, 48px) rotateY(-28deg) rotateX(8deg) rotateZ(-2deg) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -1%, 64px) rotateY(-16deg) rotateX(6deg) rotateZ(2deg) scale(1);
+  }
+}
+
+@keyframes quotePaint {
+  0% {
+    opacity: 0;
+    filter: blur(8px) drop-shadow(0 0 0 transparent);
+    clip-path: inset(0 100% 0 0);
+  }
+  18% {
+    opacity: 0.55;
+    filter: blur(5px) drop-shadow(0 0 12px rgba(200, 162, 78, 0.22));
+    clip-path: inset(0 72% 0 0);
+  }
+  48% {
+    opacity: 0.85;
+    filter: blur(2px) drop-shadow(0 0 16px rgba(200, 162, 78, 0.28));
+    clip-path: inset(0 34% 0 0);
+  }
+  78% {
+    opacity: 1;
+    filter: blur(1px) drop-shadow(0 0 18px rgba(200, 162, 78, 0.22));
+    clip-path: inset(0 8% 0 0);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0) drop-shadow(0 0 18px rgba(200, 162, 78, 0.18));
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes quoteCone {
+  0%, 100% { opacity: 0; }
+  18%, 78% { opacity: 1; }
+}
+
+@keyframes quoteMist {
+  0%, 100% { opacity: 0; transform: translate(-108%, -52%) scale(0.7); }
+  22%, 74% { opacity: 0.95; transform: translate(-118%, -52%) scale(1.15); }
+}
+
+@keyframes quoteDot {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.4); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.15); }
+}
+
+@keyframes quoteShadow {
+  to { opacity: 1; }
+}
+
+@keyframes quoteParticlesWindow {
+  0%, 100% { opacity: 0; }
+  14%, 78% { opacity: 1; }
+}
+
+/* ─── Full-bleed CTA ─── */
+.cta-band {
+  position: relative;
+  width: 100%;
+  min-height: clamp(22rem, 48vw, 34rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: var(--white);
+  text-align: center;
+  background: var(--black);
+}
+
+.cta-band__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: clamp(4.5rem, 10vw, 7.5rem) clamp(1.25rem, 6vw, 5rem);
+}
+
+.cta-band__eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 1rem;
+}
+
+.cta-band__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.15rem, 5.4vw, 4.35rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  max-width: min(32ch, 100%);
+  margin: 0 auto 1.15rem;
+}
+
+.cta-band__title::after {
+  content: '';
+  display: block;
+  width: 3.25rem;
+  height: 1px;
+  margin: 1.15rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.cta-band__lead {
+  font-size: clamp(0.9375rem, 1.6vw, 1.15rem);
+  line-height: 1.55;
+  font-weight: 300;
+  opacity: 0.9;
+  max-width: none;
+  margin: 0 auto 2rem;
+  white-space: nowrap;
+}
+
+.cta-band__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem;
+}
+
+.cta-band__actions .service-details__btn {
+  min-width: min(18rem, 100%);
+}
+
 /* ─── Footer ─── */
 .site-footer {
   background: var(--ink);
@@ -1934,10 +2312,6 @@ body.intro-active .page-nav {
     width: min(280px, 86vw);
   }
 
-  .intro__logo {
-    width: min(180px, 62vw);
-  }
-
   .hero__content {
     padding: calc(var(--header-h) + clamp(2.5rem, 8vh, 4.5rem)) 1.15rem 7.25rem;
   }
@@ -2011,6 +2385,10 @@ body.intro-active .page-nav {
   .tile__lead--2lines {
     max-width: 100%;
     font-size: clamp(0.82rem, 3.4vw, 1rem);
+  }
+
+  .cta-band__inner {
+    padding-inline: clamp(1rem, 4vw, 1.5rem);
   }
 
   .tile__panel {
@@ -2116,6 +2494,65 @@ body.intro-active .page-nav {
     justify-content: center;
   }
 
+  .quote-band {
+    --gun-x1: 30vw;
+    --gun-y1: -11.5rem;
+    --gun-x2: -32vw;
+    --gun-y2: -12rem;
+    --gun-x3: -30vw;
+    --gun-y3: -8.4rem;
+    --gun-x4: 28vw;
+    --gun-y4: -7.8rem;
+    --gun-x5: 26vw;
+    --gun-y5: -4.6rem;
+    --gun-x6: -32vw;
+    --gun-y6: -4.2rem;
+    --gun-s: 0.78;
+    min-height: 70vh;
+    padding: 5.5rem 1rem 4.5rem;
+    perspective: 1100px;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .quote-band__stage {
+    flex-direction: column;
+    gap: 1.35rem;
+  }
+
+  .quote-band__text {
+    font-size: clamp(0.82rem, 4.1vw, 1.35rem);
+  }
+
+  .quote-band__gun-slot {
+    width: 5.75rem;
+    height: 8rem;
+  }
+
+  .quote-band__gun img {
+    height: 7rem;
+  }
+
+  .quote-band__cone {
+    width: 5.5rem;
+    height: 3rem;
+    filter: blur(5px);
+  }
+
+  .quote-band__mist {
+    width: 7rem;
+    height: 4.5rem;
+    filter: blur(10px);
+  }
+
+  .cta-band {
+    min-height: 22rem;
+  }
+
+  .cta-band__actions .service-details__btn {
+    width: min(22rem, 100%);
+  }
+
   .contact {
     padding: 3.5rem 1.25rem 6.5rem;
     text-align: center;
@@ -2173,6 +2610,13 @@ body.intro-active .page-nav {
   .mega-nav__trigger {
     font-size: 1.55rem;
     padding: 1.1rem 0;
+  }
+}
+
+@media (max-width: 699px) {
+  .cta-band__lead {
+    white-space: normal;
+    max-width: min(36rem, 100%);
   }
 }
 
@@ -2396,6 +2840,30 @@ body.intro-active .page-nav {
   .intro { display: none; }
   .main-content { opacity: 1; }
   .reveal { opacity: 1; transform: none; }
+  .quote-band__text { transform: none; }
+  .quote-band,
+  .quote-band.is-playing,
+  .quote-band.is-done {
+    animation: none !important;
+  }
+  .quote-band__gun,
+  .quote-band__text,
+  .quote-band__cone,
+  .quote-band__mist,
+  .quote-band__particles i,
+  .quote-band__gun-slot::after {
+    animation: none !important;
+  }
+  .quote-band__text {
+    opacity: 1;
+    clip-path: none;
+    filter: none;
+  }
+  .quote-band__gun {
+    opacity: 1;
+    transform: translate3d(0, 2%, 48px) rotateY(-28deg) rotateX(8deg) rotateZ(-2deg) scale(1);
+  }
+  .quote-band__gun-slot::after { opacity: 1; }
   .hero__slide.is-active .hero__category,
   .hero__slide.is-active .hero__title {
     opacity: 1;
